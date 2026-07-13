@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /TEAM/
+
+# 운영 도메인 연결 후 Sitemap: https://YOUR_DOMAIN/sitemap.xml 을 추가하세요.
