@@ -45,7 +45,7 @@ about:
 
     ## 오픈소스 고지
 
-    이 사이트는 [CorentinTh/it-tools](https://github.com/CorentinTh/it-tools)를 수정해 사용하며 GNU GPL v3로 배포됩니다. 원본의 저작권 및 라이선스 고지를 보존합니다. 수정된 소스는 운영 저장소에서 공개할 예정입니다.
+    이 사이트는 [CorentinTh/it-tools](https://github.com/CorentinTh/it-tools)를 수정해 사용하며 GNU GPL v3로 배포됩니다. 원본의 저작권 및 라이선스 고지를 보존합니다. 수정된 소스는 [redplug/it-box](https://github.com/redplug/it-box)에서 공개합니다.
 404:
   notFound: '404 페이지를 찾을 수 없습니다'
   sorry: '요청한 페이지가 존재하지 않습니다.'
