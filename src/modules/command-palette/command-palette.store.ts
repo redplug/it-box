@@ -50,7 +50,7 @@ export const useCommandPaletteStore = defineStore('command-palette', () => {
       name: 'GitHub 저장소',
       href: 'https://github.com/redplug/devtoolbox',
       category: 'External',
-      description: '코드 도구함의 소스 코드를 GitHub에서 엽니다.',
+      description: 'DevToolbox의 소스 코드를 GitHub에서 엽니다.',
       keywords: ['github', 'repo', 'repository', 'source', 'code'],
       icon: GithubIcon,
     },
@@ -64,7 +64,7 @@ export const useCommandPaletteStore = defineStore('command-palette', () => {
     },
     {
       name: '사이트 정보',
-      description: '코드 도구함과 오픈소스 고지를 확인합니다.',
+      description: 'DevToolbox와 오픈소스 고지를 확인합니다.',
       to: '/about',
       category: 'Pages',
       keywords: ['about', 'learn', 'more', 'info', 'information'],

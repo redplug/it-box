@@ -2,7 +2,7 @@
 import { useHead } from '@vueuse/head';
 
 useHead({
-  title: '개발 도구 사용 가이드 | 코드 도구함',
+  title: '개발 도구 사용 가이드 | DevToolbox',
   meta: [
     { name: 'description', content: 'JSON, JWT, Base64, 정규식, Cron을 안전하게 사용하는 방법을 정리했습니다.' },
   ],

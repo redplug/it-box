@@ -34,7 +34,7 @@ const tools = computed<ToolCategory[]>(() => [
         <HeroGradient class="gradient" />
         <div class="text-wrapper">
           <div class="title">
-            코드 도구함
+            DevToolbox
           </div>
           <div class="divider" />
           <div class="subtitle">
@@ -56,10 +56,12 @@ const tools = computed<ToolCategory[]>(() => [
 
         <div class="footer">
           <div>
-            코드 도구함 · GPL-3.0
+            DevToolbox · GPL-3.0
           </div>
           <div>
             © {{ new Date().getFullYear() }}
+          </div>
+          <div>
             <RouterLink to="/about">오픈소스 고지 및 개인정보처리방침</RouterLink>
           </div>
         </div>
@@ -133,6 +135,25 @@ const tools = computed<ToolCategory[]>(() => [
   color: #838587;
   margin-top: 20px;
   padding: 20px 0;
+
+  a {
+    color: v-bind('themeVars.primaryColor');
+    font-weight: 500;
+    text-decoration: none;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+
+    &:hover {
+      color: v-bind('themeVars.primaryColorHover');
+      text-decoration: underline;
+    }
+
+    &:focus-visible {
+      outline: 2px solid v-bind('themeVars.primaryColor');
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+  }
 }
 
 .sider-content {

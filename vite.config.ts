@@ -57,7 +57,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       strategies: 'generateSW',
       manifest: {
-        name: '코드 도구함',
+        name: 'DevToolbox',
         description: '개발자를 위한 온라인 도구 모음',
         display: 'standalone',
         lang: 'ko-KR',

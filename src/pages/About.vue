@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useHead } from '@vueuse/head';
 
-useHead({ title: '사이트 정보 | 코드 도구함' });
+useHead({ title: '사이트 정보 | DevToolbox' });
 </script>
 
 <template>
