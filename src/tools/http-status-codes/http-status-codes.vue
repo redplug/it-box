@@ -17,7 +17,7 @@ const codesByCategoryFiltered = computed(() => {
     return codesByCategories;
   }
 
-  return [{ category: 'Search results', codes: searchResult.value }];
+  return [{ category: '검색 결과', codes: searchResult.value }];
 });
 </script>
 
@@ -25,7 +25,7 @@ const codesByCategoryFiltered = computed(() => {
   <div>
     <c-input-text
       v-model:value="search"
-      placeholder="Search http status..."
+      placeholder="HTTP 상태 코드 검색..."
       autofocus raw-text mb-10
     />
 
@@ -39,7 +39,7 @@ const codesByCategoryFiltered = computed(() => {
           {{ code }} {{ name }}
         </div>
         <div op-70>
-          {{ description }} {{ type !== 'HTTP' ? `For ${type}.` : '' }}
+          {{ description }} {{ type !== 'HTTP' ? `(${type} 상태 코드)` : '' }}
         </div>
       </c-card>
     </div>
