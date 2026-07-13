@@ -10,17 +10,24 @@ import IconsResolver from 'unplugin-icons/resolver';
 import Icons from 'unplugin-icons/vite';
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 import Components from 'unplugin-vue-components/vite';
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import markdown from 'vite-plugin-vue-markdown';
 import svgLoader from 'vite-svg-loader';
 import { configDefaults } from 'vitest/config';
 
-const baseUrl = process.env.BASE_URL ?? '/';
-
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  const baseUrl = process.env.BASE_URL ?? env.BASE_URL ?? '/';
+  const siteUrl = (process.env.VITE_SITE_URL ?? env.VITE_SITE_URL ?? 'https://it-box.dev').replace(/\/+$/, '');
+
+  return {
   plugins: [
+    {
+      name: 'site-url',
+      transformIndexHtml: html => html.replaceAll('__SITE_URL__', siteUrl),
+    },
     VueI18n({
       runtimeOnly: true,
       jitCompilation: true,
@@ -113,4 +120,5 @@ export default defineConfig({
   build: {
     target: 'esnext',
   },
+  };
 });

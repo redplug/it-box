@@ -12,6 +12,12 @@
 ## 개발
 
 ```sh
+cp .env.example .env
+```
+
+`.env`의 `VITE_SITE_URL`을 운영 도메인으로 바꿉니다. 이 값은 빌드 시 canonical 및 Open Graph URL에 반영됩니다.
+
+```sh
 pnpm install
 pnpm dev
 pnpm build
