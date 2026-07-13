@@ -1,18 +1,21 @@
 <script setup lang="ts">
 import { config } from '@/config';
 
+const props = defineProps<{ placement: 'home-bottom' | 'tool-bottom' }>();
+
 declare global {
   interface Window {
-    adsbygoogle?: Record<string, unknown>[];
+    adsbygoogle?: Record<string, unknown>[]
   }
 }
 
-const props = defineProps<{ placement: 'home-bottom' | 'tool-bottom' }>();
 const slot = computed(() => props.placement === 'home-bottom' ? config.ads.homeSlot : config.ads.toolSlot);
 const enabled = computed(() => config.app.env === 'production' && config.ads.enabled && config.ads.client && slot.value);
 
 onMounted(() => {
-  if (!enabled.value) return;
+  if (!enabled.value) {
+    return;
+  }
   const scriptId = 'adsense-script';
   if (!document.getElementById(scriptId)) {
     const script = document.createElement('script');
