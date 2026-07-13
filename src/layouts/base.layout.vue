@@ -34,7 +34,7 @@ const tools = computed<ToolCategory[]>(() => [
         <HeroGradient class="gradient" />
         <div class="text-wrapper">
           <div class="title">
-            DevToolbox
+            it-box
           </div>
           <div class="divider" />
           <div class="subtitle">
@@ -56,7 +56,7 @@ const tools = computed<ToolCategory[]>(() => [
 
         <div class="footer">
           <div>
-            DevToolbox · GPL-3.0
+            it-box · GPL-3.0
           </div>
           <div>
             © {{ new Date().getFullYear() }}

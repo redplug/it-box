@@ -1,4 +1,4 @@
-# DevToolbox 오픈소스 고지
+# it-box 오픈소스 고지
 
 이 프로젝트는 [CorentinTh/it-tools](https://github.com/CorentinTh/it-tools)를 기반으로 수정되었습니다.
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useHead } from '@vueuse/head';
 
-useHead({ title: '페이지를 찾을 수 없습니다 | DevToolbox' });
+useHead({ title: '페이지를 찾을 수 없습니다 | it-box' });
 </script>
 
 <template>

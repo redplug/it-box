@@ -1,4 +1,4 @@
-# DevToolbox
+# it-box
 
 한국어 개발자 도구 사이트입니다. [CorentinTh/it-tools](https://github.com/CorentinTh/it-tools)를 기반으로 수정했으며, 전체 프로젝트는 GPL-3.0으로 배포됩니다. 자세한 고지는 [NOTICE.md](NOTICE.md)를 참고하세요.
 

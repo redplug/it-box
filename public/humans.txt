@@ -1,5 +1,5 @@
 /* TEAM */
-Site: DevToolbox
+Site: it-box
 Source: CorentinTh/it-tools (GNU GPL-3.0)
 Changes: Korean localization, independent branding, privacy and ad safeguards
 License notice: /NOTICE.md in the public source repository

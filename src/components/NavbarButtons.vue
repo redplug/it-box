@@ -17,7 +17,7 @@ const { isDarkTheme } = toRefs(styleStore);
     <c-button
       circle
       variant="text"
-      href="https://github.com/redplug/devtoolbox"
+      href="https://github.com/redplug/it-box"
       target="_blank"
       rel="noopener noreferrer"
       :aria-label="$t('home.nav.githubRepository')"
