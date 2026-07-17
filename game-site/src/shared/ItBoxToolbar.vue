@@ -57,8 +57,8 @@ function chooseLocale(value: 'ko' | 'en') {
 </template>
 
 <style>
-.itbox-toolbar { display:flex; width:100%; height:36px; align-items:center; justify-content:center; gap:8px; color:rgba(255,255,255,.82); font:14px/14px v-sans, system-ui, -apple-system, "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
-.itbox-toolbar .c-button { display:inline-flex; height:34px; min-width:34px; align-items:center; justify-content:center; flex-shrink:0; padding:0 14px; border:0; border-radius:4px; outline:none; color:#ffffffd1; background:transparent; font:14px/14px v-sans, system-ui, -apple-system, "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; cursor:pointer; }
+.itbox-toolbar { display:flex; width:100%; height:36px; align-items:center; justify-content:center; gap:8px; color:var(--text-color); font:14px/14px v-sans, system-ui, -apple-system, "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
+.itbox-toolbar .c-button { display:inline-flex; height:34px; min-width:34px; align-items:center; justify-content:center; flex-shrink:0; padding:0 14px; border:0; border-radius:4px; outline:none; color:var(--text-color); background:transparent; font:14px/14px v-sans, system-ui, -apple-system, "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; cursor:pointer; }
 .itbox-toolbar .c-button.circle { width:34px; padding:0; border-radius:34px; }
 .itbox-toolbar .c-button:hover { background:rgba(255,255,255,.12); }
 .itbox-toolbar .n-icon { display:inline-flex; width:25px; height:25px; align-items:center; justify-content:center; font-style:normal; line-height:1; }

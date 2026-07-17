@@ -7,11 +7,12 @@ import GameIcon from './GameIcon.vue';
 import ItBoxToolbar from '../shared/ItBoxToolbar.vue';
 import { useGameFavorites } from '../composables/useGameFavorites';
 import { useGameLocale } from '../composables/useGameLocale';
+import { getThemeClass, isDarkTheme as getIsDarkTheme } from '../composables/useGameTheme';
 
 const menuOpen = ref(false);
 const sidebarCollapsed = ref(typeof window !== 'undefined' && window.localStorage.getItem('isMenuCollapsed') === 'true');
 const menuCollapsed = ref(false);
-const isDarkTheme = ref(typeof window === 'undefined' ? true : window.localStorage.getItem('theme') !== 'light');
+const isDarkTheme = ref(typeof window === 'undefined' ? true : getIsDarkTheme(window.localStorage.getItem('theme')));
 const favorites = useGameFavorites();
 const route = useRoute();
 const currentGame = computed(() => games.find(game => `/games/${game.slug}` === route.path));
@@ -24,10 +25,10 @@ function toggleSidebar() {
   }
 }
 watch(sidebarCollapsed, value => window.localStorage.setItem('isMenuCollapsed', String(value)));
+watch(isDarkTheme, value => document.documentElement.classList.toggle('light-theme', getThemeClass(value) === 'light-theme'), { immediate: true });
 function toggleTheme() {
   isDarkTheme.value = !isDarkTheme.value;
   window.localStorage.setItem('theme', isDarkTheme.value ? 'dark' : 'light');
-  document.documentElement.classList.toggle('light-theme', !isDarkTheme.value);
 }
 </script>
 
