@@ -22,3 +22,16 @@ pnpm install
 pnpm dev
 pnpm build
 ```
+
+## 게임 사이트
+
+`game-site/`는 [game.it-box.dev](https://game.it-box.dev)에 배포할 수 있는 독립 Vue/Vite 앱입니다. 숫자 맞히기, 반응속도 테스트, 틱택토를 제공하며 게임 기록은 사용자의 브라우저에만 저장합니다.
+
+```sh
+cd game-site
+pnpm install
+pnpm test
+pnpm build
+```
+
+기존 저장소를 그대로 사용해 Vercel 프로젝트를 하나 더 만들고, 새 프로젝트의 Root Directory를 `game-site`로 지정합니다. 도메인·광고 환경변수 설정은 [게임 사이트 README](game-site/README.md)를 참고하세요.

@@ -1,0 +1,22 @@
+/* Shared sidebar menu geometry for it-box and it-box games. */
+.itbox-menu-category { width: calc(100% - 6px); min-height: 21px; margin-top: 12px; margin-left: 6px; display: flex; align-items: center; cursor: pointer; opacity: .6; font-family: inherit; font-size: 14px; line-height: normal; }
+.itbox-menu-category { padding: 0; border: 0; color: inherit; background: transparent; text-align: left; }
+.itbox-menu-category .chevron { width: 19.2px !important; height: 19.2px !important; margin-right: 8px; fill: currentColor; opacity: .5; transform: rotate(90deg); transform-origin: center; transition: transform .2s ease; }
+.itbox-menu-category .chevron.collapsed { transform: rotate(0deg); }
+.itbox-menu-category > span:last-child { font-size: 13px; }
+.itbox-menu-wrapper { display: flex; flex-direction: row; }
+.itbox-menu-toggle-bar { position: relative; width: 24px; flex: 0 0 24px; opacity: .1; }
+.itbox-menu-toggle-bar::before { position: absolute; top: 0; left: 14px; width: 2px; height: 100%; border-radius: 2px; background: rgba(255,255,255,.52); content: ''; }
+.itbox-game-menu { display: grid; flex: 1; gap: 0; }
+.itbox-game-menu a { display: flex; width: 100%; height: 32px; min-height: 32px; align-items: center; margin: 0; padding: 0 8px; border-radius: 3px; color: rgba(255,255,255,.82); font-size: 14px; line-height: 1.5; text-decoration: none; }
+.itbox-game-menu .game-icon-svg { width: 22px; height: 22px; margin-right: 8px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
+.itbox-game-menu a:hover { background: rgba(255,255,255,.09); }
+.itbox-game-menu a.router-link-active { color: #168dcc; background: rgba(22,141,204,.15); }
+
+/* Override the generic sidebar link rule used by the game shell. */
+.app-shell .sidebar .itbox-game-menu a { padding: 0 8px; color: rgba(255,255,255,.82); background: transparent; }
+.app-shell .sidebar .itbox-game-menu { gap: 6px; }
+.app-shell .sidebar .itbox-game-menu a:hover { background: rgba(255,255,255,.09); }
+.app-shell .sidebar .itbox-game-menu a.router-link-active { color: #168dcc; background: rgba(22,141,204,.15); }
+
+.app-shell .itbox-menu-wrapper { margin-top: 6px; }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://game.it-box.dev/</loc>
+  </url>
+  <url>
+    <loc>https://game.it-box.dev/games/number-guessing</loc>
+  </url>
+  <url>
+    <loc>https://game.it-box.dev/games/reaction</loc>
+  </url>
+  <url>
+    <loc>https://game.it-box.dev/games/tic-tac-toe</loc>
+  </url>
+</urlset>
