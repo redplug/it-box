@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IconBook2, IconBrandGithub, IconInfoCircle, IconMoon, IconSun } from '@tabler/icons-vue';
+import { IconBook2, IconBrandGithub, IconDeviceGamepad2, IconInfoCircle, IconMoon, IconSun } from '@tabler/icons-vue';
 import { useStyleStore } from '@/stores/style.store';
 
 const styleStore = useStyleStore();
@@ -10,6 +10,17 @@ const { isDarkTheme } = toRefs(styleStore);
   <c-tooltip tooltip="사용 가이드" position="bottom">
     <c-button circle variant="text" to="/guides" aria-label="사용 가이드">
       <n-icon size="25" :component="IconBook2" />
+    </c-button>
+  </c-tooltip>
+
+  <c-tooltip tooltip="게임" position="bottom">
+    <c-button
+      circle
+      variant="text"
+      href="https://game.it-box.dev"
+      aria-label="it-box 게임으로 이동"
+    >
+      <n-icon size="25" :component="IconDeviceGamepad2" />
     </c-button>
   </c-tooltip>
 
