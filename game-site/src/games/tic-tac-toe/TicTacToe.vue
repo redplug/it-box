@@ -106,7 +106,7 @@ watch(() => game.value.status, (status, previousStatus) => {
 .tic-tac-toe p { margin: 0; line-height: 1.6; }
 .status { min-height: 1.5rem; font-size: 1.125rem; font-weight: 700; }
 .board { display: grid; grid-template-columns: repeat(3, minmax(4.5rem, 7rem)); gap: .5rem; }
-.cell { aspect-ratio: 1; border: 1px solid var(--border-color, #cbd5e1); border-radius: .75rem; background: var(--surface-color, #fff); color: inherit; font: 700 clamp(2rem, 10vw, 3.5rem)/1 sans-serif; cursor: pointer; }
+.cell { aspect-ratio: 1; border: 1px solid var(--border-color, #cbd5e1); border-radius: .75rem; background: var(--surface-background, #fff); color: inherit; font: 700 clamp(2rem, 10vw, 3.5rem)/1 sans-serif; cursor: pointer; }
 .cell:hover:not(:disabled), .cell:focus-visible { border-color: var(--accent-color, #2563eb); outline: 3px solid color-mix(in srgb, var(--accent-color, #2563eb) 25%, transparent); }
 .cell:disabled { cursor: default; opacity: 1; }
 .cell.winner { border-color: #16a34a; background: #dcfce7; color: #166534; }
