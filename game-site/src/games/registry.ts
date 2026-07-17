@@ -15,6 +15,12 @@ export const games: GameDefinition[] = [
     component: () => import('./number-guessing/NumberGuessing.vue'),
   },
   {
+    slug: 'number-baseball',
+    title: '숫자 야구',
+    description: '스트라이크와 볼 힌트로 숨겨진 세 자리 숫자를 맞혀 보세요.',
+    component: () => import('./number-baseball/NumberBaseball.vue'),
+  },
+  {
     slug: 'reaction',
     title: '반응속도 테스트',
     description: '신호가 나타난 순간 최대한 빠르게 반응해 보세요.',
