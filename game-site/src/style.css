@@ -5,6 +5,9 @@
   --text-color: rgba(255,255,255,.82);
   --muted-color: #a3a3a3;
   --control-background: #333;
+  --sidebar-text-color: rgba(255,255,255,.82);
+  --sidebar-muted-color: #838587;
+  --sidebar-hover-background: rgba(255,255,255,.09);
   font-family: Inter, Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--text-color);
   background: var(--page-background);
@@ -18,6 +21,9 @@
   --text-color: #1f2937;
   --muted-color: #64748b;
   --control-background: #eef2f7;
+  --sidebar-text-color: #334155;
+  --sidebar-muted-color: #64748b;
+  --sidebar-hover-background: #e2e8f0;
 }
 
 * { box-sizing: border-box; }
@@ -57,9 +63,9 @@ button, input { font: inherit; }
 @media (min-width: 1280px) { .game-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .menu-heading { padding: 0 12px 8px; color: #838587; font-size: .8rem; font-weight: 600; }
 .sidebar nav { display: grid; gap: 4px; }
-.sidebar nav a { padding: 10px 12px; border-radius: 4px; color: rgba(255,255,255,.72); text-decoration: none; transition: background .15s, color .15s; }
-.sidebar nav a:hover, .sidebar nav a.router-link-active { background: rgba(255,255,255,.08); color: #fff; }
-.footer { margin-top: 20px; padding: 20px 0; color: #838587; font-size: 14px; line-height: 1.8; text-align: center; }
+.sidebar nav a { padding: 10px 12px; border-radius: 4px; color: var(--sidebar-text-color); text-decoration: none; transition: background .15s, color .15s; }
+.sidebar nav a:hover, .sidebar nav a.router-link-active { background: var(--sidebar-hover-background); color: var(--sidebar-text-color); }
+.footer { margin-top: 20px; padding: 20px 0; color: var(--sidebar-muted-color); font-size: 14px; line-height: 1.8; text-align: center; }
 .footer a { color: #18a058; font-weight: 500; text-decoration: none; text-underline-offset: 3px; }
 .footer a:hover { text-decoration: underline; }
 main { min-height: 100vh; margin-left: 240px; padding: 26px 26px 60px; transition: margin-left .2s ease; }
@@ -87,9 +93,9 @@ main.sidebar-collapsed { margin-left: 0; }
 .mobile-header, .menu-backdrop { display: none; }
 
 @media (max-width: 760px) {
-  .mobile-header { position: sticky; top: 0; z-index: 15; display: flex; align-items: center; justify-content: space-between; height: 58px; padding: 0 18px; background: #232323; border-bottom: 1px solid #282828; }
+  .mobile-header { position: sticky; top: 0; z-index: 15; display: flex; align-items: center; justify-content: space-between; height: 58px; padding: 0 18px; background: var(--surface-background); border-bottom: 1px solid var(--border-color); }
   .brand.compact { font-size: 1.05rem; }
-  .menu-toggle { border: 1px solid #52677d; border-radius: 7px; padding: 6px 11px; color: white; background: transparent; }
+  .menu-toggle { border: 1px solid #52677d; border-radius: 7px; padding: 6px 11px; color: var(--text-color); background: transparent; }
   .sidebar { width: 240px; transform: translateX(-100%); transition: transform .2s ease; }
   .sidebar.collapsed { width: 240px; }
   .sidebar.open { transform: translateX(0); }
