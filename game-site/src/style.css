@@ -5,6 +5,8 @@
   --text-color: rgba(255,255,255,.82);
   --muted-color: #a3a3a3;
   --control-background: #333;
+  --control-text-color: rgba(255,255,255,.5);
+  --control-hover-background: rgba(255,255,255,.09);
   --sidebar-text-color: rgba(255,255,255,.82);
   --sidebar-muted-color: #838587;
   --sidebar-hover-background: rgba(255,255,255,.09);
@@ -21,6 +23,8 @@
   --text-color: #1f2937;
   --muted-color: #64748b;
   --control-background: #eef2f7;
+  --control-text-color: #475569;
+  --control-hover-background: #dbeafe;
   --sidebar-text-color: #334155;
   --sidebar-muted-color: #64748b;
   --sidebar-hover-background: #e2e8f0;
