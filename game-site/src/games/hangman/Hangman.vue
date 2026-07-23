@@ -2,16 +2,15 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useBestScore } from '../../composables/useBestScore';
 import { useGameLocale } from '../../composables/useGameLocale';
-import { createHangmanGame, guessLetter } from './engine';
+import { createHangmanGame, guessLetter, HANGMAN_WORDS, pickHangmanWord } from './engine';
 
-const WORDS = ['VUE', 'BROWSER', 'PUZZLE', 'CODING', 'KEYBOARD', 'ARCADE'];
 const { locale } = useGameLocale();
-const word = ref(WORDS[Math.floor(Math.random() * WORDS.length)]);
+const word = ref(pickHangmanWord());
 const game = ref(createHangmanGame(word.value));
 const { best, updateBest } = useBestScore('hangman', (score, current) => score < current);
-const copy = computed(() => locale.value === 'en' ? { title: 'Hangman', intro: 'Guess the hidden word one letter at a time.', wrong: 'Wrong guesses', best: 'Best', reset: 'New word', won: 'You solved it!', lost: `The word was ${game.value.word}.`, keyboard: 'Letter keyboard' } : { title: '행맨', intro: '숨겨진 단어를 한 글자씩 맞혀 보세요.', wrong: '틀린 횟수', best: '최고 기록', reset: '새 단어', won: '단어를 맞혔어요!', lost: `정답은 ${game.value.word}입니다.`, keyboard: '알파벳 키보드' });
+const copy = computed(() => locale.value === 'en' ? { title: 'Hangman', intro: 'Guess the hidden word one letter at a time.', bank: `${HANGMAN_WORDS.length} words`, wrong: 'Wrong guesses', best: 'Best', reset: 'New word', won: 'You solved it!', lost: `The word was ${game.value.word}.`, keyboard: 'Letter keyboard' } : { title: '행맨', intro: '숨겨진 단어를 한 글자씩 맞혀 보세요.', bank: `단어 ${HANGMAN_WORDS.length}개`, wrong: '틀린 횟수', best: '최고 기록', reset: '새 단어', won: '단어를 맞혔어요!', lost: `정답은 ${game.value.word}입니다.`, keyboard: '알파벳 키보드' });
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-function chooseWord() { word.value = WORDS[Math.floor(Math.random() * WORDS.length)]; game.value = createHangmanGame(word.value); }
+function chooseWord() { word.value = pickHangmanWord(Math.random, game.value.word); game.value = createHangmanGame(word.value); }
 function play(letter: string) { game.value = guessLetter(game.value, letter); if (game.value.status === 'won') updateBest(game.value.wrongGuesses); }
 function handleKey(event: KeyboardEvent) { if (/^[a-z]$/i.test(event.key)) { event.preventDefault(); play(event.key); } }
 onMounted(() => window.addEventListener('keydown', handleKey));
@@ -20,7 +19,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', handleKey));
 
 <template>
   <section class="hangman" aria-labelledby="hangman-title">
-    <header><p class="eyebrow">IT-BOX · WORD</p><h1 id="hangman-title">{{ copy.title }}</h1><p>{{ copy.intro }}</p></header>
+    <header><p class="eyebrow">IT-BOX · WORD</p><h1 id="hangman-title">{{ copy.title }}</h1><p>{{ copy.intro }}</p><small class="bank">{{ copy.bank }}</small></header>
     <div class="stats"><span>{{ copy.wrong }} <strong>{{ game.wrongGuesses }} / {{ game.maxWrongGuesses }}</strong></span><span>{{ copy.best }} <strong>{{ best ?? '—' }}</strong></span></div>
     <div class="word" aria-live="polite" aria-label="Hidden word">{{ [...game.word].map(letter => game.guessedLetters.includes(letter) || game.status !== 'playing' ? letter : '_').join(' ') }}</div>
     <p class="status" aria-live="polite">{{ game.status === 'won' ? copy.won : game.status === 'lost' ? copy.lost : '' }}</p>

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createSokobanGame, movePlayer } from './engine';
+import { createSokobanGame, movePlayer, type Direction } from './engine';
 
 const level = { id: 'test', rows: 5, columns: 5, tiles: ['#####', '#   #', '#   #', '#   #', '#####'], player: 6, boxes: [7], targets: [8] };
 
@@ -28,5 +28,12 @@ describe('sokoban engine', () => {
     const won = movePlayer(createSokobanGame(level), 'right');
     expect(movePlayer(won, 'down')).toBe(won);
     expect(createSokobanGame(level).moves).toBe(0);
+  });
+
+  it('can solve the built-in starter level', () => {
+    let game = createSokobanGame();
+    const directions: Record<string, Direction> = { U: 'up', L: 'left', R: 'right', D: 'down' };
+    for (const direction of 'ULLURURDRDL') game = movePlayer(game, directions[direction]);
+    expect(game.status).toBe('won');
   });
 });
