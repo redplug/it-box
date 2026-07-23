@@ -32,4 +32,10 @@ export const games: GameDefinition[] = [
     description: '한 기기에서 두 명이 번갈아 즐기는 3×3 게임입니다.',
     component: () => import('./tic-tac-toe/TicTacToe.vue'),
   },
+  {
+    slug: 'snake',
+    title: '뱀 게임',
+    description: '먹이를 먹고 몸을 키워 최고 점수에 도전하세요.',
+    component: () => import('./snake/Snake.vue'),
+  },
 ];
