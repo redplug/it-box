@@ -38,4 +38,10 @@ export const games: GameDefinition[] = [
     description: '먹이를 먹고 몸을 키워 최고 점수에 도전하세요.',
     component: () => import('./snake/Snake.vue'),
   },
+  {
+    slug: '2048',
+    title: '2048 숫자 퍼즐',
+    description: '같은 숫자를 합쳐 2048 타일을 만들어 보세요.',
+    component: () => import('./2048/Number2048.vue'),
+  },
 ];
