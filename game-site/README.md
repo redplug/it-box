@@ -60,6 +60,6 @@ VITE_ADSENSE_SLOT_GAME=실제_슬롯값
 
 - `pnpm test`와 `pnpm build`가 성공하는지 확인합니다.
 - `dist/`에서 AdSense 도메인을 검색해 광고 비활성 기본 빌드에 외부 광고 스크립트 태그가 없는지 확인합니다.
-- `/`, `/games/number-guessing`, `/games/reaction`, `/games/tic-tac-toe` 직접 접속과 새로고침이 정상인지 확인합니다.
+- `/`, `/games/number-guessing`, `/games/reaction`, `/games/tic-tac-toe`, `/games/2048` 직접 접속과 새로고침이 정상인지 확인합니다.
 - `https://game.it-box.dev/robots.txt`와 `/sitemap.xml`이 공개되는지 확인합니다.
 - 실제 도메인에서 canonical URL, HTTPS, 모바일 키보드 조작, 광고와 게임 컨트롤 사이 간격을 점검합니다.
