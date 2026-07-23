@@ -2,7 +2,7 @@ export type Direction = 'up' | 'right' | 'down' | 'left';
 export type SokobanStatus = 'playing' | 'won';
 export interface SokobanLevel { id: string; rows: number; columns: number; tiles: string[]; player: number; boxes: number[]; targets: number[] }
 export interface SokobanState { levelId: string; rows: number; columns: number; tiles: string[]; player: number; boxes: number[]; targets: number[]; moves: number; status: SokobanStatus }
-const DEFAULT_LEVEL: SokobanLevel = { id: 'starter', rows: 7, columns: 7, tiles: ['#######', '#     #', '# .   #', '# $   #', '#  .  #', '#  $@ #', '#######'], player: 39, boxes: [23, 38], targets: [16, 31] };
+const DEFAULT_LEVEL: SokobanLevel = { id: 'starter', rows: 7, columns: 7, tiles: ['#######', '#     #', '# .   #', '# $   #', '#  .  #', '#   @ #', '#######'], player: 39, boxes: [23, 24], targets: [16, 31] };
 const DELTAS: Record<Direction, number> = { up: -7, right: 1, down: 7, left: -1 };
 function isWall(state: SokobanState, index: number): boolean { return index < 0 || index >= state.tiles.length || state.tiles[index].includes('#'); }
 function isBox(state: SokobanState, index: number): boolean { return state.boxes.includes(index); }

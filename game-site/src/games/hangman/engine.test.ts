@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createHangmanGame, guessLetter } from './engine';
+import { createHangmanGame, guessLetter, HANGMAN_WORDS, pickHangmanWord } from './engine';
 
 describe('hangman engine', () => {
   it('normalizes a valid word and rejects invalid words', () => {
@@ -30,5 +30,10 @@ describe('hangman engine', () => {
     game = guessLetter(game, 'Y');
     expect(game.status).toBe('lost');
     expect(guessLetter(game, 'C')).toBe(game);
+  });
+
+  it('provides a real word bank and avoids immediately repeating a word', () => {
+    expect(HANGMAN_WORDS.length).toBeGreaterThanOrEqual(12);
+    expect(pickHangmanWord(() => 0, HANGMAN_WORDS[0])).not.toBe(HANGMAN_WORDS[0]);
   });
 });
