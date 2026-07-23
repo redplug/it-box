@@ -44,4 +44,40 @@ export const games: GameDefinition[] = [
     description: '같은 숫자를 합쳐 2048 타일을 만들어 보세요.',
     component: () => import('./2048/Number2048.vue'),
   },
+  {
+    slug: 'minesweeper',
+    title: '지뢰찾기',
+    description: '안전한 칸을 열고 지뢰를 찾아 보드를 클리어하세요.',
+    component: () => import('./minesweeper/Minesweeper.vue'),
+  },
+  {
+    slug: 'memory-match',
+    title: '카드 짝맞추기',
+    description: '카드를 뒤집어 모든 짝을 찾아보세요.',
+    component: () => import('./memory-match/MemoryMatch.vue'),
+  },
+  {
+    slug: 'connect-four',
+    title: '커넥트 포',
+    description: '상대보다 먼저 같은 색 말 네 개를 이어 보세요.',
+    component: () => import('./connect-four/ConnectFour.vue'),
+  },
+  {
+    slug: 'breakout',
+    title: '벽돌깨기',
+    description: '패들을 움직여 모든 벽돌을 깨 보세요.',
+    component: () => import('./breakout/Breakout.vue'),
+  },
+  {
+    slug: 'hangman',
+    title: '행맨',
+    description: '숨겨진 단어를 한 글자씩 맞혀 보세요.',
+    component: () => import('./hangman/Hangman.vue'),
+  },
+  {
+    slug: 'sokoban',
+    title: '창고 밀기',
+    description: '모든 상자를 목표 지점으로 밀어 넣으세요.',
+    component: () => import('./sokoban/Sokoban.vue'),
+  },
 ];
