@@ -35,3 +35,5 @@ pnpm build
 ```
 
 기존 저장소를 그대로 사용해 Vercel 프로젝트를 하나 더 만들고, 새 프로젝트의 Root Directory를 `game-site`로 지정합니다. 도메인·광고 환경변수 설정은 [게임 사이트 README](game-site/README.md)를 참고하세요.
+
+게임 신규 개발과 기능 변경은 [게임 개발 표준 워크플로우](docs/GAME_DEVELOPMENT_WORKFLOW.md)의 워크트리 생성 → 기획 승인 → 구현 계획 승인 → 구현·디자인·테스트 → Preview 검증 → 최종 승인 → `main` 머지 → Vercel 배포 순서를 따릅니다.
