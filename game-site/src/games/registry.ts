@@ -80,4 +80,22 @@ export const games: GameDefinition[] = [
     description: '모든 상자를 목표 지점으로 밀어 넣으세요.',
     component: () => import('./sokoban/Sokoban.vue'),
   },
+  {
+    slug: 'sudoku',
+    title: '스도쿠',
+    description: '논리적으로 숫자를 배치해 9×9 퍼즐을 완성하세요.',
+    component: () => import('./sudoku/Sudoku.vue'),
+  },
+  {
+    slug: 'flappy',
+    title: '플래피 점프',
+    description: '새를 날려 파이프 사이를 통과하며 점수를 올리세요.',
+    component: () => import('./flappy/Flappy.vue'),
+  },
+  {
+    slug: 'typing',
+    title: '타이핑 스프린트',
+    description: '문장을 빠르고 정확하게 입력해 기록을 세우세요.',
+    component: () => import('./typing/Typing.vue'),
+  },
 ];
