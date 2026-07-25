@@ -5,6 +5,8 @@ import type { HeadObject } from '@vueuse/head';
 
 import BaseLayout from './base.layout.vue';
 import FavoriteButton from '@/components/FavoriteButton.vue';
+import ToolUsageGuide from '@/components/ToolUsageGuide.vue';
+import { toolGuides } from '@/content/tool-guides';
 import type { Tool } from '@/tools/tools.types';
 
 const route = useRoute();
@@ -28,6 +30,7 @@ const { t } = useI18n();
 const i18nKey = computed<string>(() => route.path.trim().replace('/', ''));
 const toolTitle = computed<string>(() => t(`tools.${i18nKey.value}.title`, String(route.meta.name)));
 const toolDescription = computed<string>(() => t(`tools.${i18nKey.value}.description`, String(route.meta.description)));
+const usageGuide = computed(() => toolGuides[route.path]);
 </script>
 
 <template>
@@ -55,6 +58,7 @@ const toolDescription = computed<string>(() => t(`tools.${i18nKey.value}.descrip
     <div class="tool-content">
       <slot />
     </div>
+    <ToolUsageGuide v-if="usageGuide" :guide="usageGuide" />
     <AdSlot placement="tool-bottom" />
   </BaseLayout>
 </template>
