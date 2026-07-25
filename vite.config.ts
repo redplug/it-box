@@ -63,6 +63,10 @@ export default defineConfig(({ mode }) => {
     VitePWA({
       registerType: 'autoUpdate',
       strategies: 'generateSW',
+      workbox: {
+        // These files must be served as plain text/XML, not routed to the SPA shell.
+        navigateFallbackDenylist: [/^\/(?:robots\.txt|sitemap\.xml|ads\.txt)$/],
+      },
       manifest: {
         name: 'it-box',
         description: '개발자를 위한 온라인 도구 모음',
