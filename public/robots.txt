@@ -1,2 +1,4 @@
 User-agent: *
 Disallow: /TEAM/
+
+Sitemap: https://it-box.dev/sitemap.xml

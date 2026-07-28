@@ -2,6 +2,7 @@
 import { IconDragDrop } from '@tabler/icons-vue';
 import { useHead } from '@vueuse/head';
 import { computed } from 'vue';
+import { RouterLink } from 'vue-router';
 import Draggable from 'vuedraggable';
 import ToolCard from '../components/ToolCard.vue';
 import { useToolStore } from '@/tools/tools.store';
@@ -22,6 +23,17 @@ function onUpdateFavoriteTools() {
 <template>
   <div class="pt-50px">
     <div class="grid-wrapper">
+      <section class="home-introduction" aria-labelledby="home-introduction-title">
+        <p class="eyebrow">KOREAN DEVELOPER TOOLS</p>
+        <h1 id="home-introduction-title">개발 작업을 빠르게 확인하고 안전하게 정리하는 온라인 도구</h1>
+        <p>it-box는 JSON, JWT, Base64, 정규식, URL, SQL처럼 개발 중 자주 만나는 형식을 브라우저에서 확인할 수 있도록 모은 무료 도구 모음입니다. 각 도구의 결과만 보여주는 데서 끝나지 않고, 언제 사용하면 좋은지와 어떤 입력을 피해야 하는지도 함께 안내합니다.</p>
+        <div class="home-principles">
+          <div><strong>브라우저 우선 처리</strong><span>가능한 기능은 입력을 서버에 보내지 않고 현재 브라우저에서 처리합니다.</span></div>
+          <div><strong>결과를 직접 확인</strong><span>변환 결과가 보안 검증이나 사실 확인을 대신하지 않는 경우를 설명합니다.</span></div>
+          <div><strong>사용 가이드 제공</strong><span>도구별 예제와 한계를 확인한 뒤 실제 작업에 적용할 수 있습니다.</span></div>
+        </div>
+        <RouterLink class="guide-link" to="/guides">개발 도구 사용 가이드 읽기 →</RouterLink>
+      </section>
       <div class="grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4" />
 
       <transition name="height">
@@ -67,6 +79,25 @@ function onUpdateFavoriteTools() {
 </template>
 
 <style scoped lang="less">
+.home-introduction {
+  max-width: 900px;
+  margin: 0 auto 28px;
+  padding: 20px 24px;
+  border: 1px solid #dfe7e2;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(24, 160, 88, .07), rgba(255, 255, 255, .4));
+  color: #4b5560;
+  line-height: 1.6;
+}
+.home-introduction h1 { margin: 4px 0 8px; color: #26313a; font-size: clamp(23px, 2.8vw, 32px); line-height: 1.25; letter-spacing: -.035em; }
+.eyebrow { margin: 0; color: #16834a; font-size: 11px; font-weight: 700; letter-spacing: .1em; }
+.home-introduction p { margin: 0; }
+.home-principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0; }
+.home-principles div { display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; border-radius: 8px; background: rgba(255, 255, 255, .7); }
+.home-principles strong { color: #26313a; font-size: 14px; }
+.home-principles span { font-size: 13px; line-height: 1.45; }
+.guide-link { color: #16834a; font-weight: 700; text-decoration: none; }
+@media (max-width: 700px) { .home-introduction { padding: 22px 18px; } .home-principles { grid-template-columns: 1fr; } }
 .height-enter-active,
 .height-leave-active {
   transition: all 0.5s ease-in-out;
