@@ -34,13 +34,13 @@ const convertedSections = computed(() => {
 
 const { attrs: validationAttrs } = useValidation({
   source: rawIpAddress,
-  rules: [{ message: 'Invalid ipv4 address', validator: ip => isValidIpv4({ ip }) }],
+    rules: [{ message: '유효하지 않은 IPv4 주소입니다', validator: ip => isValidIpv4({ ip }) }],
 });
 </script>
 
 <template>
   <div>
-    <c-input-text v-model:value="rawIpAddress" label="The ipv4 address:" placeholder="The ipv4 address..." />
+    <c-input-text v-model:value="rawIpAddress" label="IPv4 주소:" placeholder="IPv4 주소를 입력하세요..." />
 
     <n-divider />
 
@@ -53,7 +53,7 @@ const { attrs: validationAttrs } = useValidation({
       label-align="right"
       mb-2
       :value="validationAttrs.validationStatus === 'error' ? '' : value"
-      placeholder="Set a correct ipv4 address"
+      placeholder="올바른 IPv4 주소를 입력하세요"
     />
   </div>
 </template>

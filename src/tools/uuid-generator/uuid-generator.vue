@@ -12,7 +12,7 @@ const v35Args = ref({ namespace: '6ba7b811-9dad-11d1-80b4-00c04fd430c8', name: '
 
 const validUuidRules = [
   {
-    message: 'Invalid UUID',
+    message: '유효하지 않은 UUID입니다',
     validator: (value: string) => {
       if (value === nilUuid) {
         return true;
@@ -42,16 +42,16 @@ const [uuids, refreshUUIDs] = computedRefreshable(() => withDefaultOnError(() =>
     return generator(index);
   }).join('\n'), ''));
 
-const { copy } = useCopy({ source: uuids, text: 'UUIDs copied to the clipboard' });
+const { copy } = useCopy({ source: uuids, text: 'UUID를 클립보드에 복사했습니다' });
 </script>
 
 <template>
   <div>
-    <c-buttons-select v-model:value="version" :options="versions" label="UUID version" label-width="100px" mb-2 />
+    <c-buttons-select v-model:value="version" :options="versions" label="UUID 버전" label-width="100px" mb-2 />
 
     <div mb-2 flex items-center>
-      <span w-100px>Quantity </span>
-      <n-input-number v-model:value="count" flex-1 :min="1" :max="50" placeholder="UUID quantity" />
+      <span w-100px>수량 </span>
+      <n-input-number v-model:value="count" flex-1 :min="1" :max="50" placeholder="UUID 수량" />
     </div>
 
     <div v-if="version === 'v3' || version === 'v5'">
@@ -64,7 +64,7 @@ const { copy } = useCopy({ source: uuids, text: 'UUIDs copied to the clipboard' 
             OID: '6ba7b812-9dad-11d1-80b4-00c04fd430c8',
             X500: '6ba7b814-9dad-11d1-80b4-00c04fd430c8',
           }"
-          label="Namespace"
+          label="네임스페이스"
           label-width="100px"
           mb-2
         />
@@ -72,7 +72,7 @@ const { copy } = useCopy({ source: uuids, text: 'UUIDs copied to the clipboard' 
       <div flex-1>
         <c-input-text
           v-model:value="v35Args.namespace"
-          placeholder="Namespace"
+          placeholder="네임스페이스"
           label-width="100px"
           label-position="left"
           label=" "
@@ -83,8 +83,8 @@ const { copy } = useCopy({ source: uuids, text: 'UUIDs copied to the clipboard' 
 
       <c-input-text
         v-model:value="v35Args.name"
-        placeholder="Name"
-        label="Name"
+        placeholder="이름"
+        label="이름"
         label-width="100px"
         label-position="left"
         mb-2
@@ -95,7 +95,7 @@ const { copy } = useCopy({ source: uuids, text: 'UUIDs copied to the clipboard' 
       style="text-align: center; font-family: monospace"
       :value="uuids"
       multiline
-      placeholder="Your uuids"
+      placeholder="UUID가 여기에 표시됩니다"
       autosize
       rows="1"
       readonly

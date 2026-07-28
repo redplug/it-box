@@ -23,7 +23,7 @@ const prettySQL = computed(() => formatSQL(rawSQL.value, config));
       <c-select
         v-model:value="config.language"
         flex-1
-        label="Dialect"
+        label="방언"
         :options="[
           { label: 'GCP BigQuery', value: 'bigquery' },
           { label: 'IBM DB2', value: 'db2' },
@@ -41,7 +41,7 @@ const prettySQL = computed(() => formatSQL(rawSQL.value, config));
         ]"
       />
       <c-select
-        v-model:value="config.keywordCase" label="Keyword case"
+        v-model:value="config.keywordCase" label="키워드 대소문자"
         flex-1
         :options="[
           { label: 'UPPERCASE', value: 'upper' },
@@ -50,7 +50,7 @@ const prettySQL = computed(() => formatSQL(rawSQL.value, config));
         ]"
       />
       <c-select
-        v-model:value="config.indentStyle" label="Indent style"
+        v-model:value="config.indentStyle" label="들여쓰기 방식"
         flex-1
         :options="[
           { label: 'Standard', value: 'standard' },
@@ -61,11 +61,11 @@ const prettySQL = computed(() => formatSQL(rawSQL.value, config));
     </div>
   </div>
 
-  <n-form-item label="Your SQL query">
+  <n-form-item label="SQL 쿼리">
     <c-input-text
       ref="inputElement"
       v-model:value="rawSQL"
-      placeholder="Put your SQL query here..."
+      placeholder="SQL 쿼리를 여기에 입력하세요..."
       rows="20"
       multiline
       autocomplete="off"
@@ -75,7 +75,7 @@ const prettySQL = computed(() => formatSQL(rawSQL.value, config));
       monospace
     />
   </n-form-item>
-  <n-form-item label="Prettify version of your query">
+  <n-form-item label="서식이 적용된 쿼리">
     <TextareaCopyable :value="prettySQL" language="sql" :follow-height-of="inputElement" />
   </n-form-item>
 </template>

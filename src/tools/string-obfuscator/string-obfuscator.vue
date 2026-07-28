@@ -13,16 +13,16 @@ const { copy } = useCopy({ source: obfuscatedString });
 
 <template>
   <div>
-    <c-input-text v-model:value="str" raw-text placeholder="Enter string to obfuscate" label="String to obfuscate:" clearable multiline />
+    <c-input-text v-model:value="str" raw-text placeholder="난독화할 문자열을 입력하세요" label="난독화할 문자열:" clearable multiline />
 
     <div mt-4 flex gap-10px>
       <div>
-        <div>Keep first:</div>
+        <div>앞에서 유지할 문자 수:</div>
         <n-input-number v-model:value="keepFirst" min="0" />
       </div>
 
       <div>
-        <div>Keep last:</div>
+        <div>뒤에서 유지할 문자 수:</div>
         <n-input-number v-model:value="keepLast" min="0" />
       </div>
 

@@ -14,7 +14,7 @@ const rightJson = computed(() => withDefaultOnError(() => JSON5.parse(rawRightJs
 const jsonValidationRules = [
   {
     validator: (value: string) => value === '' || isNotThrowing(() => JSON5.parse(value)),
-    message: 'Invalid JSON format',
+    message: 'JSON 형식이 유효하지 않습니다',
   },
 ];
 </script>
@@ -23,8 +23,8 @@ const jsonValidationRules = [
   <c-input-text
     v-model:value="rawLeftJson"
     :validation-rules="jsonValidationRules"
-    label="Your first JSON"
-    placeholder="Paste your first JSON here..."
+    label="첫 번째 JSON"
+    placeholder="첫 번째 JSON을 여기에 붙여 넣으세요..."
     rows="20"
     multiline
     test-id="leftJson"
@@ -35,8 +35,8 @@ const jsonValidationRules = [
   <c-input-text
     v-model:value="rawRightJson"
     :validation-rules="jsonValidationRules"
-    label="Your JSON to compare"
-    placeholder="Paste your JSON to compare here..."
+    label="비교할 JSON"
+    placeholder="비교할 JSON을 여기에 붙여 넣으세요..."
     rows="20"
     multiline
     test-id="rightJson"

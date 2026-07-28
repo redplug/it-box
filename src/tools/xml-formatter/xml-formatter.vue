@@ -17,7 +17,7 @@ function transformer(value: string) {
 const rules: UseValidationRule<string>[] = [
   {
     validator: isValidXML,
-    message: 'Provided XML is not valid.',
+    message: '입력한 XML이 유효하지 않습니다.',
   },
 ];
 </script>
@@ -25,19 +25,19 @@ const rules: UseValidationRule<string>[] = [
 <template>
   <div important:flex-full important:flex-shrink-0 important:flex-grow-0>
     <div flex justify-center>
-      <n-form-item label="Collapse content:" label-placement="left">
+        <n-form-item label="내용 접기:" label-placement="left">
         <n-switch v-model:value="collapseContent" />
       </n-form-item>
-      <n-form-item label="Indent size:" label-placement="left" label-width="100" :show-feedback="false">
+        <n-form-item label="들여쓰기 크기:" label-placement="left" label-width="100" :show-feedback="false">
         <n-input-number v-model:value="indentSize" min="0" max="10" w-100px />
       </n-form-item>
     </div>
   </div>
 
   <format-transformer
-    input-label="Your XML"
-    input-placeholder="Paste your XML here..."
-    output-label="Formatted XML from your XML"
+    input-label="XML"
+    input-placeholder="XML을 여기에 붙여 넣으세요..."
+    output-label="서식이 적용된 XML"
     output-language="xml"
     :input-validation-rules="rules"
     :transformer="transformer"

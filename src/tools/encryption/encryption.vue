@@ -23,26 +23,26 @@ const [decryptOutput, decryptError] = computedCatch(() => algos[decryptAlgo.valu
     <div flex gap-3>
       <c-input-text
         v-model:value="cypherInput"
-        label="Your text:"
-        placeholder="The string to cypher"
+        label="텍스트:"
+        placeholder="암호화할 문자열"
         rows="4"
         multiline raw-text monospace autosize flex-1
       />
       <div flex flex-1 flex-col gap-2>
-        <c-input-text v-model:value="cypherSecret" label="Your secret key:" clearable raw-text />
+        <c-input-text v-model:value="cypherSecret" label="비밀 키:" clearable raw-text />
 
         <c-select
           v-model:value="cypherAlgo"
-          label="Encryption algorithm:"
+        label="암호화 알고리즘:"
           :options="Object.keys(algos).map((label) => ({ label, value: label }))"
         />
       </div>
     </div>
     <c-input-text
-      label="Your text encrypted:"
+      label="암호화된 텍스트:"
       :value="cypherOutput"
       rows="3"
-      placeholder="Your string hash"
+      placeholder="암호화된 문자열"
       multiline monospace readonly autosize mt-5
     />
   </c-card>
@@ -50,17 +50,17 @@ const [decryptOutput, decryptError] = computedCatch(() => algos[decryptAlgo.valu
     <div flex gap-3>
       <c-input-text
         v-model:value="decryptInput"
-        label="Your encrypted text:"
-        placeholder="The string to cypher"
+        label="암호화된 텍스트:"
+        placeholder="복호화할 문자열"
         rows="4"
         multiline raw-text monospace autosize flex-1
       />
       <div flex flex-1 flex-col gap-2>
-        <c-input-text v-model:value="decryptSecret" label="Your secret key:" clearable raw-text />
+        <c-input-text v-model:value="decryptSecret" label="비밀 키:" clearable raw-text />
 
         <c-select
           v-model:value="decryptAlgo"
-          label="Encryption algorithm:"
+        label="암호화 알고리즘:"
           :options="Object.keys(algos).map((label) => ({ label, value: label }))"
         />
       </div>
@@ -70,9 +70,9 @@ const [decryptOutput, decryptError] = computedCatch(() => algos[decryptAlgo.valu
     </c-alert>
     <c-input-text
       v-else
-      label="Your decrypted text:"
+      label="복호화된 텍스트:"
       :value="decryptOutput"
-      placeholder="Your string hash"
+      placeholder="복호화된 문자열"
       rows="3"
       multiline monospace readonly autosize mt-5
     />

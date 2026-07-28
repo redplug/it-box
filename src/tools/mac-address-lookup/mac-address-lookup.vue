@@ -15,9 +15,9 @@ const { copy } = useCopy({ source: () => details.value ?? '', text: 'Vendor info
   <div>
     <c-input-text
       v-model:value="macAddress"
-      label="MAC address:"
+      label="MAC 주소:"
       size="large"
-      placeholder="Type a MAC address"
+      placeholder="MAC 주소를 입력하세요"
       clearable
       autocomplete="off"
       autocorrect="off"

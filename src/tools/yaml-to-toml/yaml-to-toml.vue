@@ -11,16 +11,16 @@ const transformer = (value: string) => value.trim() === '' ? '' : withDefaultOnE
 const rules: UseValidationRule<string>[] = [
   {
     validator: (v: string) => v === '' || parseYaml(v),
-    message: 'Provided JSON is not valid.',
+    message: '입력한 YAML이 유효하지 않습니다.',
   },
 ];
 </script>
 
 <template>
   <format-transformer
-    input-label="Your YAML"
-    input-placeholder="Paste your YAML here..."
-    output-label="TOML from your YAML"
+    input-label="YAML"
+    input-placeholder="YAML을 여기에 붙여 넣으세요..."
+    output-label="YAML에서 변환된 TOML"
     output-language="toml"
     :input-validation-rules="rules"
     :transformer="transformer"

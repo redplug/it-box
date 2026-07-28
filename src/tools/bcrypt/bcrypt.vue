@@ -8,7 +8,7 @@ const themeVars = useThemeVars();
 const input = ref('');
 const saltCount = ref(10);
 const hashed = computed(() => hashSync(input.value, saltCount.value));
-const { copy } = useCopy({ source: hashed, text: 'Hashed string copied to the clipboard' });
+const { copy } = useCopy({ source: hashed, text: '해시 문자열을 클립보드에 복사했습니다' });
 
 const compareString = ref('');
 const compareHash = ref('');
@@ -19,38 +19,38 @@ const compareMatch = computed(() => compareSync(compareString.value, compareHash
   <c-card title="Hash">
     <c-input-text
       v-model:value="input"
-      placeholder="Your string to bcrypt..."
+      placeholder="bcrypt로 처리할 문자열을 입력하세요..."
       raw-text
-      label="Your string: "
+      label="문자열: "
       label-position="left"
       label-align="right"
       label-width="120px"
       mb-2
     />
-    <n-form-item label="Salt count: " label-placement="left" label-width="120">
-      <n-input-number v-model:value="saltCount" placeholder="Salt rounds..." :max="100" :min="0" w-full />
+    <n-form-item label="솔트 횟수: " label-placement="left" label-width="120">
+      <n-input-number v-model:value="saltCount" placeholder="솔트 라운드..." :max="100" :min="0" w-full />
     </n-form-item>
 
     <c-input-text :value="hashed" readonly text-center />
 
     <div mt-5 flex justify-center>
       <c-button @click="copy()">
-        Copy hash
+        해시 복사
       </c-button>
     </div>
   </c-card>
 
-  <c-card title="Compare string with hash">
+  <c-card title="문자열과 해시 비교">
     <n-form label-width="120">
-      <n-form-item label="Your string: " label-placement="left">
-        <c-input-text v-model:value="compareString" placeholder="Your string to compare..." raw-text />
+      <n-form-item label="문자열: " label-placement="left">
+        <c-input-text v-model:value="compareString" placeholder="비교할 문자열을 입력하세요..." raw-text />
       </n-form-item>
-      <n-form-item label="Your hash: " label-placement="left">
-        <c-input-text v-model:value="compareHash" placeholder="Your hash to compare..." raw-text />
+      <n-form-item label="해시: " label-placement="left">
+        <c-input-text v-model:value="compareHash" placeholder="비교할 해시를 입력하세요..." raw-text />
       </n-form-item>
-      <n-form-item label="Do they match ? " label-placement="left" :show-feedback="false">
+      <n-form-item label="일치하나요? " label-placement="left" :show-feedback="false">
         <div class="compare-result" :class="{ positive: compareMatch }">
-          {{ compareMatch ? 'Yes' : 'No' }}
+          {{ compareMatch ? '예' : '아니요' }}
         </div>
       </n-form-item>
     </n-form>

@@ -12,7 +12,7 @@ const { attrs: bitsValidationAttrs } = useValidation({
   source: bits,
   rules: [
     {
-      message: 'Bits should be 256 <= bits <= 16384 and be a multiple of 8',
+      message: '비트 수는 256 이상 16384 이하이며 8의 배수여야 합니다',
       validator: value => value >= 256 && value <= 16384 && value % 8 === 0,
     },
   ],
@@ -27,7 +27,7 @@ const [certs, refreshCerts] = computedRefreshableAsync(
 <template>
   <div style="flex: 0 0 100%">
     <div item-style="flex: 1 1 0" style="max-width: 600px" mx-auto flex gap-3>
-      <n-form-item label="Bits :" v-bind="bitsValidationAttrs as any" label-placement="left" label-width="100">
+      <n-form-item label="비트 수:" v-bind="bitsValidationAttrs as any" label-placement="left" label-width="100">
         <n-input-number v-model:value="bits" min="256" max="16384" step="8" />
       </n-form-item>
 
@@ -38,12 +38,12 @@ const [certs, refreshCerts] = computedRefreshableAsync(
   </div>
 
   <div>
-    <h3>Public key</h3>
+    <h3>공개 키</h3>
     <TextareaCopyable :value="certs.publicKeyPem" />
   </div>
 
   <div>
-    <h3>Private key</h3>
+    <h3>개인 키</h3>
     <TextareaCopyable :value="certs.privateKeyPem" />
   </div>
 </template>

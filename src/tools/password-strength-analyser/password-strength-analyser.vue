@@ -29,7 +29,7 @@ const details = computed(() => [
     <c-input-text
       v-model:value="password"
       type="password"
-      placeholder="Enter a password..."
+      placeholder="비밀번호를 입력하세요..."
       clearable
       autofocus
       raw-text
@@ -55,7 +55,7 @@ const details = computed(() => [
       </div>
     </c-card>
     <div op-70>
-      <span font-bold>Note: </span>
+      <span font-bold>참고: </span>
       The computed strength is based on the time it would take to crack the password using a brute force approach, it does not take into account the possibility of a dictionary attack.
     </div>
   </div>

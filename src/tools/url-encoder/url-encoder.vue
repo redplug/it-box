@@ -12,12 +12,12 @@ const encodedValidation = useValidation({
   rules: [
     {
       validator: value => isNotThrowing(() => encodeURIComponent(value)),
-      message: 'Impossible to parse this string',
+      message: '이 문자열을 해석할 수 없습니다',
     },
   ],
 });
 
-const { copy: copyEncoded } = useCopy({ source: encodeOutput, text: 'Encoded string copied to the clipboard' });
+const { copy: copyEncoded } = useCopy({ source: encodeOutput, text: '인코딩된 문자열을 클립보드에 복사했습니다' });
 
 const decodeInput = ref('Hello%20world%20%3A)');
 const decodeOutput = computed(() => withDefaultOnError(() => decodeURIComponent(decodeInput.value), ''));
@@ -27,34 +27,34 @@ const decodeValidation = useValidation({
   rules: [
     {
       validator: value => isNotThrowing(() => decodeURIComponent(value)),
-      message: 'Impossible to parse this string',
+      message: '이 문자열을 해석할 수 없습니다',
     },
   ],
 });
 
-const { copy: copyDecoded } = useCopy({ source: decodeOutput, text: 'Decoded string copied to the clipboard' });
+const { copy: copyDecoded } = useCopy({ source: decodeOutput, text: '디코딩된 문자열을 클립보드에 복사했습니다' });
 </script>
 
 <template>
   <c-card title="Encode">
     <c-input-text
       v-model:value="encodeInput"
-      label="Your string :"
+      label="문자열:"
       :validation="encodedValidation"
       multiline
       autosize
-      placeholder="The string to encode"
+      placeholder="인코딩할 문자열"
       rows="2"
       mb-3
     />
 
     <c-input-text
-      label="Your string encoded :"
+      label="인코딩된 문자열:"
       :value="encodeOutput"
       multiline
       autosize
       readonly
-      placeholder="Your string encoded"
+      placeholder="인코딩된 문자열"
       rows="2"
       mb-3
     />
@@ -68,22 +68,22 @@ const { copy: copyDecoded } = useCopy({ source: decodeOutput, text: 'Decoded str
   <c-card title="Decode">
     <c-input-text
       v-model:value="decodeInput"
-      label="Your encoded string :"
+      label="인코딩된 문자열:"
       :validation="decodeValidation"
       multiline
       autosize
-      placeholder="The string to decode"
+      placeholder="디코딩할 문자열"
       rows="2"
       mb-3
     />
 
     <c-input-text
-      label="Your string decoded :"
+      label="디코딩된 문자열:"
       :value="decodeOutput"
       multiline
       autosize
       readonly
-      placeholder="Your string decoded"
+      placeholder="디코딩된 문자열"
       rows="2"
       mb-3
     />
