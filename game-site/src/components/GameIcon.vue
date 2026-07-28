@@ -14,6 +14,9 @@ defineProps<{ slug: string }>();
     <path v-else-if="slug === 'breakout'" d="M5 5h4v3H5zM10 5h4v3h-4zM15 5h4v3h-4zM7 17h10M12 14v-3" />
     <path v-else-if="slug === 'hangman'" d="M5 20V4h10a4 4 0 0 1 0 8H9m6 0 4 8M5 4h4" />
     <path v-else-if="slug === 'sokoban'" d="M4 4h16v16H4zM8 8h3v3H8zM13 13h3v3h-3zM10 18v-3" />
+    <path v-else-if="slug === 'sudoku'" d="M4 4h16v16H4zM9.33 4v16M14.66 4v16M4 9.33h16M4 14.66h16" />
+    <path v-else-if="slug === 'flappy'" d="M4 12c3-5 8-5 11-1l5-3-2 5 2 5-5-3c-3 4-8 4-11-1Z" />
+    <path v-else-if="slug === 'typing'" d="M4 6h16v12H4zM7 10h.01m3 0h.01m3 0h.01m3 0h.01M7 14h10" />
     <path v-else d="M5 5h14v14H5zM5 12h14M12 5v14" />
   </svg>
 </template>
