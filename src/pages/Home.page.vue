@@ -81,21 +81,21 @@ function onUpdateFavoriteTools() {
 <style scoped lang="less">
 .home-introduction {
   max-width: 900px;
-  margin: 0 auto 36px;
-  padding: 28px 30px;
+  margin: 0 auto 28px;
+  padding: 20px 24px;
   border: 1px solid #dfe7e2;
   border-radius: 14px;
   background: linear-gradient(135deg, rgba(24, 160, 88, .07), rgba(255, 255, 255, .4));
   color: #4b5560;
-  line-height: 1.75;
+  line-height: 1.6;
 }
-.home-introduction h1 { margin: 5px 0 10px; color: #26313a; font-size: clamp(28px, 4vw, 42px); line-height: 1.2; letter-spacing: -.04em; }
-.eyebrow { margin: 0; color: #16834a; font-size: 12px; font-weight: 700; letter-spacing: .12em; }
+.home-introduction h1 { margin: 4px 0 8px; color: #26313a; font-size: clamp(23px, 2.8vw, 32px); line-height: 1.25; letter-spacing: -.035em; }
+.eyebrow { margin: 0; color: #16834a; font-size: 11px; font-weight: 700; letter-spacing: .1em; }
 .home-introduction p { margin: 0; }
-.home-principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 22px 0; }
-.home-principles div { display: flex; flex-direction: column; gap: 4px; padding: 14px; border-radius: 10px; background: rgba(255, 255, 255, .7); }
-.home-principles strong { color: #26313a; font-size: 15px; }
-.home-principles span { font-size: 14px; line-height: 1.55; }
+.home-principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0; }
+.home-principles div { display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; border-radius: 8px; background: rgba(255, 255, 255, .7); }
+.home-principles strong { color: #26313a; font-size: 14px; }
+.home-principles span { font-size: 13px; line-height: 1.45; }
 .guide-link { color: #16834a; font-weight: 700; text-decoration: none; }
 @media (max-width: 700px) { .home-introduction { padding: 22px 18px; } .home-principles { grid-template-columns: 1fr; } }
 .height-enter-active,
