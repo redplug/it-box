@@ -91,4 +91,4 @@ export const toolGuides: Record<string, ToolGuide> = {
     limitations: '편집 결과가 자동으로 접근성, 보안, 이메일 클라이언트 호환성을 보장하지 않습니다.',
     safety: '사용자 입력을 그대로 저장하거나 `innerHTML`로 렌더링하지 말고 서버 측 sanitization을 적용하세요.',
   },
-}
+};
