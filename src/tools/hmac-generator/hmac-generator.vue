@@ -47,20 +47,20 @@ const { copy } = useCopy({ source: hmac });
 
 <template>
   <div flex flex-col gap-4>
-    <c-input-text v-model:value="plainText" multiline raw-text placeholder="Plain text to compute the hash..." rows="3" autosize autofocus label="Plain text to compute the hash" />
-    <c-input-text v-model:value="secret" raw-text placeholder="Enter the secret key..." label="Secret key" clearable />
+    <c-input-text v-model:value="plainText" multiline raw-text placeholder="해시를 계산할 평문을 입력하세요..." rows="3" autosize autofocus label="해시를 계산할 평문" />
+    <c-input-text v-model:value="secret" raw-text placeholder="비밀 키를 입력하세요..." label="비밀 키" clearable />
 
     <div flex gap-2>
       <c-select
-        v-model:value="hashFunction" label="Hashing function"
+        v-model:value="hashFunction" label="해시 함수"
         flex-1
-        placeholder="Select an hashing function..."
+        placeholder="해시 함수를 선택하세요..."
         :options="Object.keys(algos).map((label) => ({ label, value: label }))"
       />
       <c-select
-        v-model:value="encoding" label="Output encoding"
+        v-model:value="encoding" label="출력 인코딩"
         flex-1
-        placeholder="Select the result encoding..."
+        placeholder="결과 인코딩을 선택하세요..."
         :options="[
           {
             label: 'Binary (base 2)',
@@ -81,7 +81,7 @@ const { copy } = useCopy({ source: hmac });
         ]"
       />
     </div>
-    <input-copyable v-model:value="hmac" type="textarea" placeholder="The result of the HMAC..." label="HMAC of your text" />
+    <input-copyable v-model:value="hmac" type="textarea" placeholder="HMAC 결과가 여기에 표시됩니다..." label="텍스트의 HMAC" />
     <div flex justify-center>
       <c-button @click="copy()">
         Copy HMAC

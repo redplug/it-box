@@ -14,17 +14,17 @@ function transformer(value: string) {
 const rules: UseValidationRule<string>[] = [
   {
     validator: (v: string) => v === '' || JSON5.parse(v),
-    message: 'Provided JSON is not valid.',
+    message: '입력한 JSON이 유효하지 않습니다.',
   },
 ];
 </script>
 
 <template>
   <format-transformer
-    input-label="Your JSON content"
+    input-label="JSON 내용"
     :input-default="defaultValue"
-    input-placeholder="Paste your JSON content here..."
-    output-label="Converted XML"
+    input-placeholder="JSON 내용을 여기에 붙여 넣으세요..."
+    output-label="변환된 XML"
     output-language="xml"
     :transformer="transformer"
     :input-validation-rules="rules"

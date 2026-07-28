@@ -17,7 +17,7 @@ const validation = useValidation({
   rules: [
     {
       validator: value => value === '' || /^[0-9 +\-()]+$/.test(value),
-      message: 'Invalid phone number',
+      message: '유효하지 않은 전화번호입니다',
     },
   ],
 });
@@ -85,12 +85,12 @@ const countriesOptions = getCountries().map(code => ({
 
 <template>
   <div>
-    <c-select v-model:value="defaultCountryCode" label="Default country code:" :options="countriesOptions" searchable mb-5 />
+    <c-select v-model:value="defaultCountryCode" label="기본 국가 코드:" :options="countriesOptions" searchable mb-5 />
 
     <c-input-text
       v-model:value="rawPhone"
-      placeholder="Enter a phone number"
-      label="Phone number:"
+      placeholder="전화번호를 입력하세요"
+      label="전화번호:"
       :validation="validation"
       mb-5
     />

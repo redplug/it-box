@@ -17,7 +17,7 @@ const normalizedEmails = computed(() => {
     .join('\n');
 });
 
-const { copy } = useCopy({ source: normalizedEmails, text: 'Normalized emails copied to the clipboard', createToast: true });
+const { copy } = useCopy({ source: normalizedEmails, text: '정규화된 이메일을 클립보드에 복사했습니다', createToast: true });
 </script>
 
 <template>
@@ -27,7 +27,7 @@ const { copy } = useCopy({ source: normalizedEmails, text: 'Normalized emails co
     </div>
     <c-input-text
       v-model:value="emails"
-      placeholder="Put your emails here (one per line)..."
+      placeholder="이메일을 한 줄에 하나씩 입력하세요..."
       rows="3"
       multiline
       autocomplete="off"
@@ -43,7 +43,7 @@ const { copy } = useCopy({ source: normalizedEmails, text: 'Normalized emails co
     </div>
     <c-input-text
       :value="normalizedEmails"
-      placeholder="Normalized emails will appear here..."
+      placeholder="정규화된 이메일이 여기에 표시됩니다..."
       rows="3"
       autocomplete="off"
       autocorrect="off"

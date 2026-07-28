@@ -8,7 +8,7 @@ const props = withDefaults(defineProps<{
 }>(), {
   multiple: false,
   accept: undefined,
-  title: 'Drag and drop files here, or click to select files',
+  title: '파일을 여기에 끌어다 놓거나 클릭하여 선택하세요',
 });
 
 const emit = defineEmits<{

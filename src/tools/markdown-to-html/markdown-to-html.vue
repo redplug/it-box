@@ -23,15 +23,15 @@ function printHtml() {
     <c-input-text
       v-model:value="inputMarkdown"
       multiline raw-text
-      placeholder="Your Markdown content..."
+      placeholder="Markdown 내용을 입력하세요..."
       rows="8"
       autofocus
-      label="Your Markdown to convert:"
+      label="변환할 Markdown:"
     />
 
     <n-divider />
 
-    <n-form-item label="Output HTML:">
+      <n-form-item label="출력 HTML:">
       <TextareaCopyable :value="outputHtml" :word-wrap="true" language="html" />
     </n-form-item>
 

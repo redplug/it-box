@@ -42,7 +42,7 @@ const { download } = useDownloadFileFromBase64({ source: qrcode, filename: 'qr-c
         <c-select
           v-model:value="encryption"
           mb-4
-          label="Encryption method"
+          label="암호화 방식"
           default-value="WPA"
           label-position="left"
           label-width="130px"
@@ -75,7 +75,7 @@ const { download } = useDownloadFileFromBase64({ source: qrcode, filename: 'qr-c
             label="SSID:"
             rows="1"
             autosize
-            placeholder="Your WiFi SSID..."
+          placeholder="WiFi SSID를 입력하세요..."
             mb-6
           />
           <n-checkbox v-model:checked="isHiddenSSID">
@@ -88,17 +88,17 @@ const { download } = useDownloadFileFromBase64({ source: qrcode, filename: 'qr-c
           label-position="left"
           label-width="130px"
           label-align="right"
-          label="Password:"
+          label="비밀번호:"
           rows="1"
           autosize
           type="password"
-          placeholder="Your WiFi Password..."
+          placeholder="WiFi 비밀번호를 입력하세요..."
           mb-6
         />
         <c-select
           v-if="encryption === 'WPA2-EAP'"
           v-model:value="eapMethod"
-          label="EAP method"
+          label="EAP 방식"
           label-position="left"
           label-width="130px"
           label-align="right"
@@ -111,10 +111,10 @@ const { download } = useDownloadFileFromBase64({ source: qrcode, filename: 'qr-c
             label-position="left"
             label-width="130px"
             label-align="right"
-            label="Identity:"
+          label="ID:"
             rows="1"
             autosize
-            placeholder="Your EAP Identity..."
+          placeholder="EAP ID를 입력하세요..."
             mb-6
           />
           <n-checkbox v-model:checked="eapAnonymous">
@@ -124,7 +124,7 @@ const { download } = useDownloadFileFromBase64({ source: qrcode, filename: 'qr-c
         <c-select
           v-if="encryption === 'WPA2-EAP'"
           v-model:value="eapPhase2Method"
-          label="EAP Phase 2 method"
+          label="EAP 2단계 방식"
           label-position="left"
           label-width="130px"
           label-align="right"
@@ -132,10 +132,10 @@ const { download } = useDownloadFileFromBase64({ source: qrcode, filename: 'qr-c
           searchable mb-4
         />
         <n-form label-width="130" label-placement="left">
-          <n-form-item label="Foreground color:">
+          <n-form-item label="전경색:">
             <n-color-picker v-model:value="foreground" :modes="['hex']" />
           </n-form-item>
-          <n-form-item label="Background color:">
+          <n-form-item label="배경색:">
             <n-color-picker v-model:value="background" :modes="['hex']" />
           </n-form-item>
         </n-form>

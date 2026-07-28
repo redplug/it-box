@@ -32,15 +32,15 @@ const { download } = useDownloadFileFromBase64({ source: qrcode, filename: 'qr-c
           label-position="left"
           label-width="130px"
           label-align="right"
-          label="Text:"
+          label="텍스트:"
           multiline
           rows="1"
           autosize
-          placeholder="Your link or text..."
+          placeholder="링크 또는 텍스트를 입력하세요..."
           mb-6
         />
         <n-form label-width="130" label-placement="left">
-          <n-form-item label="Foreground color:">
+          <n-form-item label="전경색:">
             <n-color-picker v-model:value="foreground" :modes="['hex']" />
           </n-form-item>
           <n-form-item label="Background color:">

@@ -6,7 +6,7 @@ const username = ref('');
 const password = ref('');
 const header = computed(() => `Authorization: Basic ${textToBase64(`${username.value}:${password.value}`)}`);
 
-const { copy } = useCopy({ source: header, text: 'Header copied to the clipboard' });
+const { copy } = useCopy({ source: header, text: '헤더를 클립보드에 복사했습니다' });
 </script>
 
 <template>
@@ -14,8 +14,8 @@ const { copy } = useCopy({ source: header, text: 'Header copied to the clipboard
     <c-input-text v-model:value="username" label="Username" placeholder="Your username..." clearable raw-text mb-5 />
     <c-input-text
       v-model:value="password"
-      label="Password"
-      placeholder="Your password..."
+      label="비밀번호"
+      placeholder="비밀번호를 입력하세요..."
       clearable
       raw-text
       mb-2
@@ -23,7 +23,7 @@ const { copy } = useCopy({ source: header, text: 'Header copied to the clipboard
     />
 
     <c-card>
-      <n-statistic label="Authorization header:" class="header">
+      <n-statistic label="Authorization 헤더:" class="header">
         <n-scrollbar x-scrollable style="max-width: 550px; margin-bottom: -10px; padding-bottom: 10px" trigger="none">
           {{ header }}
         </n-scrollbar>

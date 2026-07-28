@@ -10,15 +10,15 @@ const transformer = (value: string) => value.trim() === '' ? '' : withDefaultOnE
 const rules: UseValidationRule<string>[] = [
   {
     validator: isValidToml,
-    message: 'Provided TOML is not valid.',
+    message: '입력한 TOML이 유효하지 않습니다.',
   },
 ];
 </script>
 
 <template>
   <format-transformer
-    input-label="Your TOML"
-    input-placeholder="Paste your TOML here..."
+    input-label="TOML"
+    input-placeholder="TOML을 여기에 붙여 넣으세요..."
     output-label="YAML from your TOML"
     output-language="yaml"
     :input-validation-rules="rules"

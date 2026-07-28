@@ -102,7 +102,7 @@ const cronString = computed(() => {
 const cronValidationRules = [
   {
     validator: (value: string) => isCronValid(value),
-    message: 'This cron is invalid',
+    message: '이 Cron 표현식은 유효하지 않습니다',
   },
 ];
 </script>
@@ -127,13 +127,13 @@ const cronValidationRules = [
 
     <div flex justify-center>
       <n-form :show-feedback="false" label-width="170" label-placement="left">
-        <n-form-item label="Verbose">
+        <n-form-item label="상세 표시">
           <n-switch v-model:value="cronstrueConfig.verbose" />
         </n-form-item>
-        <n-form-item label="Use 24 hour time format">
+        <n-form-item label="24시간 형식 사용">
           <n-switch v-model:value="cronstrueConfig.use24HourTimeFormat" />
         </n-form-item>
-        <n-form-item label="Days start at 0">
+        <n-form-item label="요일을 0부터 시작">
           <n-switch v-model:value="cronstrueConfig.dayOfWeekStartIndexZero" />
         </n-form-item>
       </n-form>

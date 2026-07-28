@@ -5,7 +5,7 @@ import { useCopy } from '@/composable/copy';
 
 const input = ref('');
 const slug = computed(() => withDefaultOnError(() => slugify(input.value), ''));
-const { copy } = useCopy({ source: slug, text: 'Slug copied to clipboard' });
+const { copy } = useCopy({ source: slug, text: 'Slug을 클립보드에 복사했습니다' });
 </script>
 
 <template>

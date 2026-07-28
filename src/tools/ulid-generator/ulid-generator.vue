@@ -18,17 +18,17 @@ const [ulids, refreshUlids] = computedRefreshable(() => {
   return ids.join('\n');
 });
 
-const { copy } = useCopy({ source: ulids, text: 'ULIDs copied to the clipboard' });
+const { copy } = useCopy({ source: ulids, text: 'ULID를 클립보드에 복사했습니다' });
 </script>
 
 <template>
   <div flex flex-col justify-center gap-2>
     <div flex items-center>
-      <label w-75px> Quantity:</label>
+      <label w-75px> 수량:</label>
       <n-input-number v-model:value="amount" min="1" max="100" flex-1 />
     </div>
 
-    <c-buttons-select v-model:value="format" :options="formats" label="Format: " label-width="75px" />
+    <c-buttons-select v-model:value="format" :options="formats" label="형식: " label-width="75px" />
 
     <c-card mt-5 flex data-test-id="ulids">
       <pre m-0 m-x-auto>{{ ulids }}</pre>

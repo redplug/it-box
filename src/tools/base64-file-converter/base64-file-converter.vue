@@ -19,7 +19,7 @@ const base64InputValidation = useValidation({
   source: base64Input,
   rules: [
     {
-      message: 'Invalid base 64 string',
+      message: '유효하지 않은 Base64 문자열입니다',
       validator: value => isValidBase64(value.trim()),
     },
   ],
@@ -69,7 +69,7 @@ function downloadFile() {
 
 const fileInput = ref() as Ref<File>;
 const { base64: fileBase64 } = useBase64(fileInput);
-const { copy: copyFileBase64 } = useCopy({ source: fileBase64, text: 'Base64 string copied to the clipboard' });
+const { copy: copyFileBase64 } = useCopy({ source: fileBase64, text: 'Base64 문자열을 클립보드에 복사했습니다' });
 
 async function onUpload(file: File) {
   if (file) {
@@ -84,16 +84,16 @@ async function onUpload(file: File) {
       <n-gi span="2">
         <c-input-text
           v-model:value="fileName"
-          label="File Name"
-          placeholder="Download filename"
+          label="파일 이름"
+          placeholder="다운로드 파일 이름"
           mb-2
         />
       </n-gi>
       <n-gi>
         <c-input-text
           v-model:value="fileExtension"
-          label="Extension"
-          placeholder="Extension"
+          label="확장자"
+          placeholder="확장자"
           mb-2
         />
       </n-gi>
@@ -101,7 +101,7 @@ async function onUpload(file: File) {
     <c-input-text
       v-model:value="base64Input"
       multiline
-      placeholder="Put your base64 file string here..."
+      placeholder="Base64 파일 문자열을 여기에 입력하세요..."
       rows="5"
       :validation="base64InputValidation"
       mb-2

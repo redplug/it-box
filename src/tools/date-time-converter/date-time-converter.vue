@@ -126,7 +126,7 @@ const validation = useValidation({
   watch: [formatIndex],
   rules: [
     {
-      message: 'This date is invalid for this format',
+      message: '이 형식에 맞지 않는 날짜입니다',
       validator: value =>
         withDefaultOnError(() => {
           if (value === '') {
@@ -155,7 +155,7 @@ function formatDateUsingFormatter(formatter: (date: Date) => string, date?: Date
       <c-input-text
         v-model:value="inputDate"
         autofocus
-        placeholder="Put your date string here..."
+      placeholder="날짜 문자열을 입력하세요..."
         clearable
         test-id="date-time-converter-input"
         :validation="validation"
@@ -180,7 +180,7 @@ function formatDateUsingFormatter(formatter: (date: Date) => string, date?: Date
       label-position="left"
       label-align="right"
       :value="formatDateUsingFormatter(fromDate, normalizedDate)"
-      placeholder="Invalid date..."
+      placeholder="유효하지 않은 날짜..."
       :test-id="name"
       readonly
       mt-2

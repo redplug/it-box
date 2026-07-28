@@ -34,10 +34,10 @@ const error = computed(() =>
 <template>
   <div>
     <c-card>
-      <c-input-text v-model:value="input" label="Input number" placeholder="Put your number here (ex: 42)" label-position="left" label-width="110px" mb-2 label-align="right" />
+      <c-input-text v-model:value="input" label="입력 숫자" placeholder="숫자를 입력하세요 (예: 42)" label-position="left" label-width="110px" mb-2 label-align="right" />
 
-      <n-form-item label="Input base" label-placement="left" label-width="110" :show-feedback="false">
-        <n-input-number v-model:value="inputBase" max="64" min="2" placeholder="Put your input base here (ex: 10)" w-full />
+      <n-form-item label="입력 진법" label-placement="left" label-width="110" :show-feedback="false">
+        <n-input-number v-model:value="inputBase" max="64" min="2" placeholder="입력 진법을 지정하세요 (예: 10)" w-full />
       </n-form-item>
 
       <n-alert v-if="error" style="margin-top: 25px" type="error">
@@ -82,7 +82,7 @@ const error = computed(() =>
 
       <div flex items-baseline>
         <n-input-group style="width: 160px; margin-right: 10px">
-          <n-input-group-label> Custom: </n-input-group-label>
+          <n-input-group-label> 사용자 지정: </n-input-group-label>
           <n-input-number v-model:value="outputBase" max="64" min="2" />
         </n-input-group>
 
@@ -90,7 +90,7 @@ const error = computed(() =>
           flex-1
           v-bind="inputProps"
           :value="errorlessConvert({ value: input, fromBase: inputBase, toBase: outputBase })"
-          :placeholder="`Base ${outputBase} will be here...`"
+          :placeholder="`${outputBase}진법 결과가 여기에 표시됩니다...`"
         />
       </div>
     </c-card>

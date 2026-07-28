@@ -15,7 +15,7 @@ const networkInfo = computed(() => withDefaultOnError(() => getNetworkInfo(ip.va
 
 const ipValidationRules = [
   {
-    message: 'We cannot parse this address, check the format',
+    message: '주소를 해석할 수 없습니다. 형식을 확인하세요',
     validator: (value: string) => isNotThrowing(() => getNetworkInfo(value.trim())),
   },
 ];
@@ -86,8 +86,8 @@ function switchToBlock({ count = 1 }: { count?: number }) {
   <div>
     <c-input-text
       v-model:value="ip"
-      label="An IPv4 address with or without mask"
-      placeholder="The ipv4 address..."
+      label="마스크가 있거나 없는 IPv4 주소"
+      placeholder="IPv4 주소를 입력하세요..."
       :validation-rules="ipValidationRules"
       mb-4
     />
