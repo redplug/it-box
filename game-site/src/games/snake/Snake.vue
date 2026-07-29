@@ -10,6 +10,7 @@ const { locale } = useGameLocale();
 let timer: ReturnType<typeof setInterval> | undefined;
 let touchStart: { x: number; y: number } | null = null;
 
+const { copy: localeCopy } = useGameLocale();
 const copy = computed(() => locale.value === 'en' ? {
   title: 'Snake', intro: 'Eat the food, grow longer, and beat your best score.', score: 'Score', best: 'Best', start: 'Start game', pause: 'Pause', resume: 'Resume', restart: 'Play again', over: 'Game over', won: 'You filled the board!', controls: 'Arrow keys / WASD, or swipe to move.', paused: 'Paused',
 } : {
@@ -54,7 +55,7 @@ onBeforeUnmount(() => { clearTimer(); window.removeEventListener('keydown', hand
         <button type="button" class="primary" @click="state.status === 'paused' ? pause() : begin()">{{ state.status === 'paused' ? copy.resume : state.status === 'idle' ? copy.start : copy.restart }}</button>
       </div>
     </div>
-    <div class="controls" aria-label="Direction controls"><button v-for="control in [{ d: 'up', label: '↑' }, { d: 'left', label: '←' }, { d: 'down', label: '↓' }, { d: 'right', label: '→' }]" :key="control.d" type="button" :aria-label="control.d" @click="change(control.d as Direction)">{{ control.label }}</button></div>
+    <div class="controls" :aria-label="localeCopy.accessibility.directionControls"><button v-for="control in [{ d: 'up', label: '↑', aria: localeCopy.accessibility.up }, { d: 'left', label: '←', aria: localeCopy.accessibility.left }, { d: 'down', label: '↓', aria: localeCopy.accessibility.down }, { d: 'right', label: '→', aria: localeCopy.accessibility.right }]" :key="control.d" type="button" :aria-label="control.aria" @click="change(control.d as Direction)">{{ control.label }}</button></div>
     <button v-if="state.status === 'playing' || state.status === 'paused'" type="button" class="pause" @click="pause">{{ state.status === 'paused' ? copy.resume : copy.pause }}</button>
     <p class="help" aria-live="polite">{{ copy.controls }}</p>
   </section>
