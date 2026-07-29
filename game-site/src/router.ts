@@ -1,6 +1,8 @@
+import { watch } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { games } from './games/registry';
 import Home from './pages/Home.vue';
+import { getSiteMetadata, locale } from './composables/useGameLocale';
 
 const siteUrl = (import.meta.env.VITE_SITE_URL || 'https://game.it-box.dev').replace(/\/$/, '');
 
@@ -11,21 +13,23 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Home,
-      meta: { title: 'it-box games', description: '설치 없이 즐기는 간단한 무료 웹게임 모음입니다.' },
+      meta: { title: 'it-box 게임', description: '설치 없이 즐기는 간단한 무료 웹게임 모음입니다.' },
     },
     ...games.map(game => ({
       path: `/games/${game.slug}`,
       name: game.slug,
       component: game.component,
-      meta: { title: `${game.title} | it-box games`, description: game.description },
+      meta: { title: `${game.title} | it-box 게임`, description: game.description },
     })),
     { path: '/:pathMatch(.*)*', redirect: '/' },
   ],
 });
 
-router.afterEach((route) => {
-  const title = String(route.meta.title || 'it-box games');
-  const description = String(route.meta.description || '간단한 무료 웹게임 모음입니다.');
+function updateDocumentMetadata(route: typeof router.currentRoute.value) {
+  const slug = typeof route.name === 'string' && route.name !== 'home' ? route.name : undefined;
+  const metadata = getSiteMetadata(locale.value, slug);
+  const title = metadata.title;
+  const description = metadata.description;
   const canonicalUrl = `${siteUrl}${route.path === '/' ? '/' : route.path}`;
   document.title = title;
   document.querySelector<HTMLMetaElement>('meta[name="description"]')?.setAttribute('content', description);
@@ -33,6 +37,9 @@ router.afterEach((route) => {
   document.querySelector<HTMLMetaElement>('meta[property="og:url"]')?.setAttribute('content', canonicalUrl);
   document.querySelector<HTMLMetaElement>('meta[property="og:title"]')?.setAttribute('content', title);
   document.querySelector<HTMLMetaElement>('meta[property="og:description"]')?.setAttribute('content', description);
-});
+}
+
+router.afterEach(updateDocumentMetadata);
+watch(locale, () => updateDocumentMetadata(router.currentRoute.value));
 
 export default router;

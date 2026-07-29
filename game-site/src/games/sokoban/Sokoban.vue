@@ -4,7 +4,7 @@ import { useBestScore } from '../../composables/useBestScore';
 import { useGameLocale } from '../../composables/useGameLocale';
 import { createSokobanGame, movePlayer, type Direction } from './engine';
 
-const { locale } = useGameLocale();
+const { locale, copy: localeCopy } = useGameLocale();
 const game = ref(createSokobanGame());
 const { best, updateBest } = useBestScore('sokoban', (score, current) => score < current);
 const copy = computed(() => locale.value === 'en' ? { title: 'Sokoban', intro: 'Push every box onto a target.', moves: 'Moves', best: 'Best', reset: 'Reset level', won: 'Level complete!', controls: 'Arrow keys or buttons' } : { title: '창고 밀기', intro: '모든 상자를 목표 지점으로 밀어 넣으세요.', moves: '이동', best: '최고 기록', reset: '레벨 다시 시작', won: '레벨을 완료했어요!', controls: '방향키 또는 버튼으로 이동하세요.' });
@@ -22,7 +22,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', handleKey));
     <div class="stats"><span>{{ copy.moves }} <strong>{{ game.moves }}</strong></span><span>{{ copy.best }} <strong>{{ best ?? '—' }}</strong></span></div>
     <div class="board" role="grid" :style="{ '--columns': game.columns }" :aria-label="copy.controls"><button v-for="(_, index) in game.tiles.flatMap(row => row.split(''))" :key="index" type="button" role="gridcell" :class="cellClass(index)" :aria-label="`${index + 1}`" disabled>{{ cellClass(index).player ? '●' : cellClass(index).box ? '■' : cellClass(index).target ? '◎' : '' }}</button></div>
     <p class="status" aria-live="polite">{{ game.status === 'won' ? copy.won : copy.controls }}</p>
-    <div class="controls"><button type="button" aria-label="Up" @click="play('up')">↑</button><button type="button" aria-label="Left" @click="play('left')">←</button><button type="button" aria-label="Down" @click="play('down')">↓</button><button type="button" aria-label="Right" @click="play('right')">→</button></div>
+    <div class="controls"><button type="button" :aria-label="localeCopy.accessibility.up" @click="play('up')">↑</button><button type="button" :aria-label="localeCopy.accessibility.left" @click="play('left')">←</button><button type="button" :aria-label="localeCopy.accessibility.down" @click="play('down')">↓</button><button type="button" :aria-label="localeCopy.accessibility.right" @click="play('right')">→</button></div>
     <button class="reset" type="button" @click="reset">{{ copy.reset }}</button>
   </section>
 </template>

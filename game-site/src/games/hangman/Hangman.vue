@@ -4,7 +4,7 @@ import { useBestScore } from '../../composables/useBestScore';
 import { useGameLocale } from '../../composables/useGameLocale';
 import { createHangmanGame, guessLetter, HANGMAN_WORDS, pickHangmanWord } from './engine';
 
-const { locale } = useGameLocale();
+const { locale, copy: localeCopy } = useGameLocale();
 const word = ref(pickHangmanWord());
 const game = ref(createHangmanGame(word.value));
 const { best, updateBest } = useBestScore('hangman', (score, current) => score < current);
@@ -21,7 +21,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', handleKey));
   <section class="hangman" aria-labelledby="hangman-title">
     <header><p class="eyebrow">IT-BOX · WORD</p><h1 id="hangman-title">{{ copy.title }}</h1><p>{{ copy.intro }}</p><small class="bank">{{ copy.bank }}</small></header>
     <div class="stats"><span>{{ copy.wrong }} <strong>{{ game.wrongGuesses }} / {{ game.maxWrongGuesses }}</strong></span><span>{{ copy.best }} <strong>{{ best ?? '—' }}</strong></span></div>
-    <div class="word" aria-live="polite" aria-label="Hidden word">{{ [...game.word].map(letter => game.guessedLetters.includes(letter) || game.status !== 'playing' ? letter : '_').join(' ') }}</div>
+    <div class="word" aria-live="polite" :aria-label="localeCopy.accessibility.hiddenWord">{{ [...game.word].map(letter => game.guessedLetters.includes(letter) || game.status !== 'playing' ? letter : '_').join(' ') }}</div>
     <p class="status" aria-live="polite">{{ game.status === 'won' ? copy.won : game.status === 'lost' ? copy.lost : '' }}</p>
     <div class="keyboard" role="group" :aria-label="copy.keyboard"><button v-for="letter in alphabet" :key="letter" type="button" :disabled="game.guessedLetters.includes(letter) || game.status !== 'playing'" @click="play(letter)">{{ letter }}</button></div>
     <button class="reset" type="button" @click="chooseWord">{{ copy.reset }}</button>

@@ -4,7 +4,7 @@ import { useGameLocale } from '../../composables/useGameLocale';
 import { createConnectFourGame, dropDisc, type ConnectPlayer } from './engine';
 
 interface Results { red: number; yellow: number; draws: number }
-const { locale } = useGameLocale();
+const { locale, copy: localeCopy } = useGameLocale();
 const game = ref(createConnectFourGame());
 const results = ref<Results>({ red: 0, yellow: 0, draws: 0 });
 const copy = computed(() => locale.value === 'en' ? { title: 'Connect Four', intro: 'Drop four discs in a row before your opponent.', red: 'Red', yellow: 'Yellow', turn: 'turn', win: 'wins!', draw: 'Draw game.', reset: 'New game', column: (n: number) => `Drop in column ${n}` } : { title: '커넥트 포', intro: '상대보다 먼저 같은 색 말 네 개를 이어 보세요.', red: '빨강', yellow: '노랑', turn: '차례', win: '승리!', draw: '무승부입니다.', reset: '새 게임', column: (n: number) => `${n}번 열에 놓기` });
@@ -21,7 +21,7 @@ watch(results, value => localStorage.setItem('game-site:connect-four:results', J
     <header><p class="eyebrow">IT-BOX · TWO PLAYER</p><h1 id="connect-title">{{ copy.title }}</h1><p>{{ copy.intro }}</p></header>
     <p class="status" aria-live="polite">{{ game.status === 'won' ? `${game.winner === 'red' ? copy.red : copy.yellow} ${copy.win}` : game.status === 'draw' ? copy.draw : `${game.currentPlayer === 'red' ? copy.red : copy.yellow} ${copy.turn}` }}</p>
     <div class="drop-row"><button v-for="column in game.columns" :key="column" type="button" :aria-label="copy.column(column)" :disabled="game.status !== 'playing'" @click="play(column - 1)">↓</button></div>
-    <div class="board" role="grid" aria-label="Connect Four board">
+    <div class="board" role="grid" :aria-label="localeCopy.accessibility.connectFourBoard">
       <button v-for="(cell, index) in game.board" :key="index" type="button" role="gridcell" :aria-label="cellLabel(index)" :class="[cell ?? 'empty', { winner: game.winningCells.includes(index) }]" disabled>{{ cell ? '' : '·' }}</button>
     </div>
     <button class="reset" type="button" @click="reset">{{ copy.reset }}</button>
