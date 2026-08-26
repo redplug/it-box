@@ -1,4 +1,5 @@
 import { createApp } from 'vue';
+import { startAnalytics } from './analytics';
 import { createPinia } from 'pinia';
 import { createHead } from '@vueuse/head';
 
@@ -16,6 +17,7 @@ import router from './router';
 import { i18nPlugin } from './plugins/i18n.plugin';
 
 registerSW();
+startAnalytics();
 
 const app = createApp(App);
 
