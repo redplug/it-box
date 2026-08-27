@@ -29,3 +29,11 @@
 - `pnpm` is unavailable in this environment, so verification used the equivalent `npm exec` commands.
 - Repository-wide typecheck remains red due to pre-existing unrelated errors.
 - Date filtering uses the runtime's local calendar timezone, as required; behavior therefore depends on the user's configured timezone.
+
+## Review fix round 1
+
+- Added regression coverage for empty coordinate tokens (``, ` , ``, `37.5,``) and non-ISO timestamp strings (`01/02/2025`, `January 2, 2025`).
+- Updated parsing to require decimal coordinate tokens and ISO timestamps with an explicit timezone before constructing `Date` values.
+- RED: `./node_modules/.bin/vitest run src/tools/google-timeline-visualizer/timeline.models.test.ts` — 2 failed, 6 passed, exposing both reviewed defects.
+- GREEN: `./node_modules/.bin/vitest run src/tools/google-timeline-visualizer/timeline.models.test.ts` — 1 file passed, 8 tests passed.
+- Fix commit: `aa45924539c9cd9ddccf0bd4c8cce361ab4144c7` (`fix: validate timeline coordinates and timestamps`).
