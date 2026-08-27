@@ -45,6 +45,30 @@ test('analyzes nested segments and summarizes available and visited dates', asyn
   await expect(page.getByTestId('timeline-canvas')).toBeVisible();
 });
 
+test('filters an inclusive multi-day range and redraws its route preview', async ({ page }) => {
+  await page.goto('/google-timeline-visualizer');
+  await page.getByTestId('timeline-file-input').setInputFiles({
+    name: 'invented-inclusive-range.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from(JSON.stringify([
+      activitySegment('2051-04-01T12:00:00Z', '2051-04-01T13:00:00Z', '31,41', '31.5,41.5'),
+      activitySegment('2051-04-02T12:00:00Z', '2051-04-02T13:00:00Z', '32,42', '32.5,42.5'),
+      activitySegment('2051-04-03T12:00:00Z', '2051-04-03T13:00:00Z', '33,43', '33.5,43.5'),
+    ])),
+  });
+
+  await page.getByLabel('시작일').fill('2051-04-02');
+  await page.getByLabel('종료일').fill('2051-04-03');
+
+  const summary = page.getByTestId('timeline-summary');
+  await expect(page.getByLabel('시작일')).toHaveValue('2051-04-02');
+  await expect(page.getByLabel('종료일')).toHaveValue('2051-04-03');
+  await expect(summary).toContainText('4개 지점');
+  await expect(summary).toContainText('방문한 날짜 2일');
+  await expect(summary).toContainText('217.9 km');
+  await expect(page.getByTestId('timeline-canvas')).toHaveAttribute('aria-label', /4개 지점/);
+});
+
 test('does not put Timeline-derived values in requests made during analysis', async ({ page }) => {
   await page.goto('/google-timeline-visualizer', { waitUntil: 'networkidle' });
   const requestPayloads: string[] = [];

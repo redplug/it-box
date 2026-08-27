@@ -19,6 +19,7 @@ type UnknownRecord = Record<string, unknown>;
 const decimalPattern = /^[+-]?(?:\d+(?:\.\d+)?|\.\d+)$/;
 const isoTimestampPattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:?\d{2})$/;
 const maxPreviewPoints = 2_000;
+const pathEndToleranceMs = 60_000;
 
 function isRecord(value: unknown): value is UnknownRecord {
   return value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -33,14 +34,19 @@ function parseTimestamp(value: unknown): string | undefined {
   return Number.isNaN(timestamp.getTime()) ? undefined : timestamp.toISOString();
 }
 
-function parsePathTimestamp(pathEntry: UnknownRecord, segmentStartTime: unknown): string | undefined {
+function parsePathTimestamp(
+  pathEntry: UnknownRecord,
+  segmentStartTime: unknown,
+  segmentEndTime: unknown,
+): string | undefined {
   const absoluteTimestamp = parseTimestamp(pathEntry.time);
   if (absoluteTimestamp) {
     return absoluteTimestamp;
   }
 
   const offset = pathEntry.durationMinutesOffsetFromStartTime;
-  if ((typeof offset !== 'number' && typeof offset !== 'string') || offset === '') {
+  if ((typeof offset !== 'number' && typeof offset !== 'string')
+    || (typeof offset === 'string' && !decimalPattern.test(offset))) {
     return undefined;
   }
 
@@ -51,7 +57,12 @@ function parsePathTimestamp(pathEntry: UnknownRecord, segmentStartTime: unknown)
   }
 
   const timestamp = new Date(new Date(startTimestamp).getTime() + offsetMinutes * 60_000);
-  return Number.isNaN(timestamp.getTime()) ? undefined : timestamp.toISOString();
+  const endTimestamp = parseTimestamp(segmentEndTime);
+  if (Number.isNaN(timestamp.getTime())
+    || (endTimestamp && timestamp.getTime() > new Date(endTimestamp).getTime() + pathEndToleranceMs)) {
+    return undefined;
+  }
+  return timestamp.toISOString();
 }
 
 function unwrapCoordinate(value: unknown): unknown {
@@ -129,7 +140,7 @@ function extractSegment(segmentValue: unknown): TimelinePoint[] {
       appendPoint(
         points,
         pathEntryValue.point,
-        parsePathTimestamp(pathEntryValue, segmentValue.startTime),
+        parsePathTimestamp(pathEntryValue, segmentValue.startTime, segmentValue.endTime),
       );
     }
   }

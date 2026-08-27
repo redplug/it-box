@@ -104,15 +104,36 @@ describe('timeline models', () => {
       { startTime: '01/02/2046', latLng: '7,8' },
       {
         startTime: '2046-01-02T00:00:00Z',
+        endTime: '2046-01-02T01:00:00Z',
         timelinePath: [
           { point: '7,8', durationMinutesOffsetFromStartTime: '-1' },
           { point: '7,8', durationMinutesOffsetFromStartTime: 'later' },
           { point: '7,8', durationMinutesOffsetFromStartTime: '1e300' },
+          { point: '7,8', durationMinutesOffsetFromStartTime: ' ' },
+          { point: '7,8', durationMinutesOffsetFromStartTime: '0x10' },
+          { point: '7,8', durationMinutesOffsetFromStartTime: '1e1' },
+          { point: '7,8', durationMinutesOffsetFromStartTime: '120' },
         ],
       },
     ]);
 
     expect(result.points).toEqual([]);
+  });
+
+  test('keeps lexical decimal offset minutes within the segment interval', () => {
+    const result = normalizeTimeline([{
+      startTime: '2046-01-02T00:00:00Z',
+      endTime: '2046-01-02T01:00:00Z',
+      timelinePath: [
+        { point: '7,8', durationMinutesOffsetFromStartTime: '0.5' },
+        { point: '7.5,8.5', durationMinutesOffsetFromStartTime: 60 },
+      ],
+    }]);
+
+    expect(result.points).toEqual([
+      { latitude: 7, longitude: 8, timestamp: '2046-01-02T00:00:30.000Z' },
+      { latitude: 7.5, longitude: 8.5, timestamp: '2046-01-02T01:00:00.000Z' },
+    ]);
   });
 
   test('returns unsupported-format for unknown JSON shapes', () => {
