@@ -109,6 +109,10 @@ tools:
     title: Camera recorder
     description: Take a picture or record a video from your webcam or camera.
 
+  google-timeline-visualizer:
+    title: Google Timeline local visualizer
+    description: Analyze Google Timeline JSON in your browser and preview its route.
+
   keycode-info:
     title: Keycode info
     description: Find the javascript keycode, code, location and modifiers of any pressed key.

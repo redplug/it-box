@@ -2,6 +2,13 @@ import { Buffer } from 'node:buffer';
 
 import { expect, test } from '@playwright/test';
 
+test('registers local Timeline visualizer route', async ({ page }) => {
+  await page.goto('/google-timeline-visualizer');
+
+  await expect(page).toHaveTitle(/ - it-box$/);
+  await expect(page.getByTestId('timeline-privacy-notice')).toBeVisible();
+});
+
 test('shows local-processing notice and analyzes fictional Timeline file', async ({ page }) => {
   await page.goto('/google-timeline-visualizer');
 
