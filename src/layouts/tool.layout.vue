@@ -31,6 +31,7 @@ const i18nKey = computed<string>(() => route.path.trim().replace('/', ''));
 const toolTitle = computed<string>(() => t(`tools.${i18nKey.value}.title`, String(route.meta.name)));
 const toolDescription = computed<string>(() => t(`tools.${i18nKey.value}.description`, String(route.meta.description)));
 const usageGuide = computed(() => toolGuides[route.path]);
+const showAd = computed(() => route.path !== '/google-timeline-visualizer');
 </script>
 
 <template>
@@ -59,7 +60,7 @@ const usageGuide = computed(() => toolGuides[route.path]);
       <slot />
     </div>
     <ToolUsageGuide v-if="usageGuide" :guide="usageGuide" />
-    <AdSlot placement="tool-bottom" />
+    <AdSlot v-if="showAd" placement="tool-bottom" />
   </BaseLayout>
 </template>
 

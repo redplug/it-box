@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { type TimelinePoint, calculateDistanceKm, filterPointsByDate, normalizeTimeline } from './timeline.models';
+import {
+  type TimelinePoint,
+  calculateDistanceKm,
+  filterPointsByDate,
+  localCalendarDate,
+  normalizeTimeline,
+  projectTimelinePoints,
+} from './timeline.models';
 
 const points = ref<TimelinePoint[]>([]);
 const startDate = ref('');
@@ -11,26 +18,61 @@ let animationFrame: number | undefined;
 let previewGeneration = 0;
 let selectionGeneration = 0;
 
+const availableStart = computed(() => points.value.length > 0
+  ? localCalendarDate(points.value[0].timestamp)
+  : '');
+const availableEnd = computed(() => points.value.length > 0
+  ? localCalendarDate(points.value[points.value.length - 1].timestamp)
+  : '');
+const startDateMax = computed(() => endDate.value && endDate.value < availableEnd.value
+  ? endDate.value
+  : availableEnd.value);
+const endDateMin = computed(() => startDate.value && startDate.value > availableStart.value
+  ? startDate.value
+  : availableStart.value);
+
 const selectedPoints = computed(() => {
-  if (!startDate.value || !endDate.value) {
-    return points.value;
+  if (!startDate.value
+    || !endDate.value
+    || startDate.value > endDate.value
+    || startDate.value < availableStart.value
+    || endDate.value > availableEnd.value) {
+    return [];
   }
   return filterPointsByDate(points.value, startDate.value, endDate.value);
 });
-const distanceKm = computed(() => calculateDistanceKm(selectedPoints.value));
 
-function localDate(timestamp: string): string {
-  const date = new Date(timestamp);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
+const rangeError = computed(() => {
+  if (!startDate.value || !endDate.value) {
+    return '시작일과 종료일을 모두 선택해 주세요.';
+  }
+  if (startDate.value > endDate.value) {
+    return '시작일은 종료일보다 늦을 수 없습니다.';
+  }
+  if (startDate.value < availableStart.value || endDate.value > availableEnd.value) {
+    return '선택 기간은 분석 가능 기간 안에서 지정해 주세요.';
+  }
+  if (selectedPoints.value.length === 0) {
+    return '선택한 기간에 위치 정보가 없습니다.';
+  }
+  return '';
+});
+
+const distanceKm = computed(() => calculateDistanceKm(selectedPoints.value));
+const visitedDays = computed(() => new Set(
+  selectedPoints.value.map(({ timestamp }) => localCalendarDate(timestamp)),
+).size);
 
 function cancelPreview() {
   previewGeneration += 1;
   cancelAnimationFrame(animationFrame ?? 0);
   animationFrame = undefined;
+}
+
+function drawMarker(context: CanvasRenderingContext2D, x: number, y: number) {
+  context.beginPath();
+  context.arc(x, y, 4, 0, Math.PI * 2);
+  context.fill();
 }
 
 function drawPreview() {
@@ -50,48 +92,41 @@ function drawPreview() {
     }
 
     context.clearRect(0, 0, element.width, element.height);
-    if (previewPoints.length === 0) {
+    const coordinates = projectTimelinePoints(previewPoints, element.width, element.height);
+    if (coordinates.length === 0) {
       return;
     }
 
-    const latitudes = previewPoints.map(({ latitude }) => latitude);
-    const longitudes = previewPoints.map(({ longitude }) => longitude);
-    const minLatitude = Math.min(...latitudes);
-    const maxLatitude = Math.max(...latitudes);
-    const minLongitude = Math.min(...longitudes);
-    const maxLongitude = Math.max(...longitudes);
-    const margin = 24;
-    const width = element.width - margin * 2;
-    const height = element.height - margin * 2;
-    const latitudeRange = maxLatitude - minLatitude || 1;
-    const longitudeRange = maxLongitude - minLongitude || 1;
+    context.strokeStyle = '#3b82f6';
+    context.fillStyle = '#2563eb';
+    context.lineWidth = 2;
+    drawMarker(context, coordinates[0].x, coordinates[0].y);
+    if (coordinates.length === 1) {
+      animationFrame = undefined;
+      return;
+    }
 
-    const coordinates = previewPoints.map(({ latitude, longitude }) => ({
-      x: margin + ((longitude - minLongitude) / longitudeRange) * width,
-      y: margin + (1 - (latitude - minLatitude) / latitudeRange) * height,
-    }));
-    let lastPointIndex = 0;
-
+    const pointsPerFrame = Math.ceil((coordinates.length - 1) / 60);
+    let nextPointIndex = 1;
     const animate = () => {
       if (generation !== previewGeneration) {
         return;
       }
 
-      context.clearRect(0, 0, element.width, element.height);
-      context.strokeStyle = '#3b82f6';
-      context.lineWidth = 2;
+      const frameEnd = Math.min(coordinates.length, nextPointIndex + pointsPerFrame);
       context.beginPath();
-      context.moveTo(coordinates[0].x, coordinates[0].y);
-      for (let index = 1; index <= lastPointIndex; index += 1) {
-        context.lineTo(coordinates[index].x, coordinates[index].y);
+      context.moveTo(coordinates[nextPointIndex - 1].x, coordinates[nextPointIndex - 1].y);
+      for (; nextPointIndex < frameEnd; nextPointIndex += 1) {
+        context.lineTo(coordinates[nextPointIndex].x, coordinates[nextPointIndex].y);
       }
       context.stroke();
 
-      if (lastPointIndex < coordinates.length - 1) {
-        lastPointIndex += 1;
+      if (nextPointIndex < coordinates.length) {
         animationFrame = requestAnimationFrame(animate);
       }
       else {
+        const finalPoint = coordinates[coordinates.length - 1];
+        drawMarker(context, finalPoint.x, finalPoint.y);
         animationFrame = undefined;
       }
     };
@@ -135,8 +170,8 @@ async function onFileSelected(file: File) {
       return;
     }
 
-    startDate.value = localDate(points.value[0].timestamp);
-    endDate.value = localDate(points.value[points.value.length - 1].timestamp);
+    startDate.value = localCalendarDate(points.value[0].timestamp);
+    endDate.value = localCalendarDate(points.value[points.value.length - 1].timestamp);
   }
   catch {
     if (selection === selectionGeneration) {
@@ -174,8 +209,9 @@ onBeforeUnmount(() => cancelPreview());
 
 <template>
   <div flex flex-col gap-4>
-    <c-card data-test-id="timeline-privacy-notice" data-testid="timeline-privacy-notice">
-      이 도구는 선택한 Timeline 파일을 브라우저에서만 처리하며, 파일이나 위치 정보는 외부로 전송하거나 저장하지 않습니다.
+    <c-card data-test-id="timeline-privacy-notice">
+      파일과 위치 좌표는 이 브라우저에서만 처리됩니다. 업로드·저장·외부 지도 요청은 하지 않습니다.
+      본인 소유이거나 처리 권한이 있는 데이터만 사용하고, 타인의 위치 정보는 허락 없이 처리하지 마세요.
     </c-card>
 
     <c-card>
@@ -186,54 +222,82 @@ onBeforeUnmount(() => cancelPreview());
           type="file"
           accept="application/json,.json"
           data-test-id="timeline-file-input"
-          data-testid="timeline-file-input"
           @change="onInputChange"
         >
       </label>
-      <p v-if="error" mt-2 text-red-600 data-test-id="timeline-error" data-testid="timeline-error">
+      <p v-if="error" mt-2 text-red-600 data-test-id="timeline-error">
         {{ error }}
       </p>
     </c-card>
 
-    <c-card v-if="points.length > 0" data-test-id="timeline-summary" data-testid="timeline-summary">
-      <div flex flex-wrap items-end justify-between gap-3>
+    <c-card v-if="points.length > 0" data-test-id="timeline-summary">
+      <div flex flex-wrap items-start justify-between gap-3>
         <div>
           <div font-medium>
-            선택한 기간의 위치 기록
+            Timeline 분석
           </div>
-          <div text-2xl>
-            {{ selectedPoints.length }}개 지점 · {{ distanceKm.toFixed(1) }} km
+          <div mt-1 text-sm>
+            분석 가능 기간: {{ availableStart }} ~ {{ availableEnd }}
           </div>
         </div>
-        <button type="button" data-test-id="timeline-reset" data-testid="timeline-reset" @click="reset">
+        <button type="button" data-test-id="timeline-reset" @click="reset">
           초기화
         </button>
       </div>
+
       <div mt-4 flex flex-wrap gap-3>
         <label flex flex-col gap-1>
           <span>시작일</span>
-          <input v-model="startDate" type="date" :max="endDate || undefined">
+          <input
+            v-model="startDate"
+            type="date"
+            :min="availableStart"
+            :max="startDateMax"
+          >
         </label>
         <label flex flex-col gap-1>
           <span>종료일</span>
-          <input v-model="endDate" type="date" :min="startDate || undefined">
+          <input
+            v-model="endDate"
+            type="date"
+            :min="endDateMin"
+            :max="availableEnd"
+          >
         </label>
       </div>
-      <canvas
-        ref="canvas"
+
+      <p
+        v-if="rangeError"
         mt-4
-        block
-        h-64
-        w-full
-        rounded
-        bg-slate-50
-        width="640"
-        height="256"
-        role="img"
-        :aria-label="`선택한 Timeline 경로 미리보기: ${selectedPoints.length}개 지점`"
-        data-test-id="timeline-canvas"
-        data-testid="timeline-canvas"
-      />
+        text-red-600
+        role="alert"
+        data-test-id="timeline-range-error"
+      >
+        {{ rangeError }}
+      </p>
+
+      <template v-else>
+        <div mt-4 text-2xl>
+          {{ selectedPoints.length }}개 지점 · {{ distanceKm.toFixed(1) }} km
+        </div>
+        <div mt-1 text-sm>
+          방문한 날짜 {{ visitedDays }}일
+        </div>
+        <canvas
+          ref="canvas"
+          mt-4
+          block
+          h-64
+          w-full
+          rounded
+          bg-slate-50
+          width="640"
+          height="256"
+          role="img"
+          :aria-label="`선택한 Timeline 경로 미리보기: ${selectedPoints.length}개 지점`"
+          data-test-id="timeline-canvas"
+        />
+      </template>
     </c-card>
   </div>
 </template>
