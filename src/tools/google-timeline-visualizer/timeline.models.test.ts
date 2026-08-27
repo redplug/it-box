@@ -38,6 +38,25 @@ describe('timeline models', () => {
     expect(result.points).toEqual([{ latitude: 37.5, longitude: 127, timestamp: '2025-01-01T00:00:00.000Z' }])
   })
 
+  test('rejects empty coordinate tokens', () => {
+    const result = normalizeTimeline([
+      { startTime: '2025-01-01T00:00:00Z', latLng: ',' },
+      { startTime: '2025-01-01T00:00:00Z', latLng: ' , ' },
+      { startTime: '2025-01-01T00:00:00Z', latLng: '37.5,' },
+    ])
+
+    expect(result.points).toEqual([])
+  })
+
+  test('rejects non-ISO timestamp strings', () => {
+    const result = normalizeTimeline([
+      { startTime: '01/02/2025', latLng: '37.5,127' },
+      { startTime: 'January 2, 2025', latLng: '37.5,127' },
+    ])
+
+    expect(result.points).toEqual([])
+  })
+
   test('returns unsupported-format for unknown JSON shapes', () => {
     expect(normalizeTimeline({ data: [] })).toEqual({ points: [], error: 'unsupported-format' })
   })

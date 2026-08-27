@@ -13,14 +13,19 @@ type TimelineEntry = { startTime?: unknown; latLng?: unknown }
 type SemanticSegment = { timelinePath?: unknown }
 type TimelinePathEntry = { point?: unknown; time?: unknown }
 
+const decimalPattern = /^[+-]?(?:\d+(?:\.\d+)?|\.\d+)$/
+const isoTimestampPattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:?\d{2})$/
+
 function parsePoint(coordinate: unknown, timestamp: unknown): TimelinePoint | undefined {
   if (typeof coordinate !== 'string' || typeof timestamp !== 'string') return undefined
+  if (!isoTimestampPattern.test(timestamp)) return undefined
 
   const parsedTimestamp = new Date(timestamp)
   if (Number.isNaN(parsedTimestamp.getTime())) return undefined
 
-  const values = coordinate.split(',').map(value => Number(value.trim()))
-  if (values.length !== 2 || !values.every(Number.isFinite)) return undefined
+  const tokens = coordinate.split(',').map(value => value.trim())
+  if (tokens.length !== 2 || !tokens.every(value => decimalPattern.test(value))) return undefined
+  const values = tokens.map(value => Number(value))
 
   const [latitude, longitude] = values
   if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180) return undefined
