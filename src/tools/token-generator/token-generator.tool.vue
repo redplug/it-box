@@ -59,6 +59,7 @@ const { copy } = useCopy({ source: token, text: t('tools.token-generator.copied'
         v-model:value="token"
         multiline
         :placeholder="t('tools.token-generator.tokenPlaceholder')"
+        test-id="token-output"
         readonly
         rows="3"
         autosize

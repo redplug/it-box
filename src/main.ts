@@ -1,10 +1,10 @@
 import { createApp } from 'vue';
-import { startAnalytics } from './analytics';
 import { createPinia } from 'pinia';
 import { createHead } from '@vueuse/head';
 
 import { registerSW } from 'virtual:pwa-register';
 import shadow from 'vue-shadow-dom';
+import { startAnalytics } from './analytics';
 import { plausible } from './plugins/plausible.plugin';
 
 import 'virtual:uno.css';
