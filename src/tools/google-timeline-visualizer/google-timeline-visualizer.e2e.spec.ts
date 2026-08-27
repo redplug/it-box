@@ -26,6 +26,19 @@ test('shows local-processing notice and analyzes fictional Timeline file', async
   await expect(page.getByTestId('timeline-canvas')).toBeVisible();
 });
 
+test('does not request external services while analyzing a file', async ({ page }) => {
+  const requests: string[] = [];
+  page.on('request', request => requests.push(request.url()));
+  await page.goto('/google-timeline-visualizer');
+  await page.getByTestId('timeline-file-input').setInputFiles({
+    name: 'fictional-timeline.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from(JSON.stringify([{ startTime: '2025-01-01T00:00:00Z', latLng: '37.5,127.0' }])),
+  });
+  await expect(page.getByTestId('timeline-summary')).toBeVisible();
+  expect(requests.filter(url => !url.startsWith('http://127.0.0.1:5050/'))).toEqual([]);
+});
+
 test('rejects non-JSON input without rendering summary', async ({ page }) => {
   await page.goto('/google-timeline-visualizer');
   await page.getByTestId('timeline-file-input').setInputFiles({
