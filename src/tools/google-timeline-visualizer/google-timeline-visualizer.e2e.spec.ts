@@ -44,3 +44,22 @@ test('clears local analysis state', async ({ page }) => {
   await page.getByTestId('timeline-reset').click();
   await expect(page.getByTestId('timeline-summary')).toHaveCount(0);
 });
+
+test('filters inclusively by local dates and redraws the preview', async ({ page }) => {
+  await page.goto('/google-timeline-visualizer');
+  await page.getByTestId('timeline-file-input').setInputFiles({
+    name: 'three-days.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from(JSON.stringify([
+      { startTime: '2025-01-01T12:00:00Z', latLng: '0,0' },
+      { startTime: '2025-01-02T12:00:00Z', latLng: '0,1' },
+      { startTime: '2025-01-03T12:00:00Z', latLng: '0,2' },
+    ])),
+  });
+
+  await page.getByLabel('시작일').fill('2025-01-02');
+  await page.getByLabel('종료일').fill('2025-01-03');
+
+  await expect(page.getByTestId('timeline-summary')).toContainText('2개 지점 · 111.2 km');
+  await expect(page.getByTestId('timeline-canvas')).toHaveAttribute('aria-label', '선택한 Timeline 경로 미리보기: 2개 지점');
+});

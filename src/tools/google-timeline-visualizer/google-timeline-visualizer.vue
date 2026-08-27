@@ -8,6 +8,8 @@ const error = ref('');
 const fileInput = ref<HTMLInputElement>();
 const canvas = ref<HTMLCanvasElement>();
 let animationFrame: number | undefined;
+let previewGeneration = 0;
+let selectionGeneration = 0;
 
 const selectedPoints = computed(() => {
   if (!startDate.value || !endDate.value) {
@@ -25,9 +27,22 @@ function localDate(timestamp: string): string {
   return `${year}-${month}-${day}`;
 }
 
-function drawPreview() {
+function cancelPreview() {
+  previewGeneration += 1;
   cancelAnimationFrame(animationFrame ?? 0);
+  animationFrame = undefined;
+}
+
+function drawPreview() {
+  cancelPreview();
+  const generation = previewGeneration;
+  const previewPoints = selectedPoints.value;
+
   animationFrame = requestAnimationFrame(() => {
+    if (generation !== previewGeneration) {
+      return;
+    }
+
     const element = canvas.value;
     const context = element?.getContext('2d');
     if (!element || !context) {
@@ -35,12 +50,12 @@ function drawPreview() {
     }
 
     context.clearRect(0, 0, element.width, element.height);
-    if (selectedPoints.value.length === 0) {
+    if (previewPoints.length === 0) {
       return;
     }
 
-    const latitudes = selectedPoints.value.map(({ latitude }) => latitude);
-    const longitudes = selectedPoints.value.map(({ longitude }) => longitude);
+    const latitudes = previewPoints.map(({ latitude }) => latitude);
+    const longitudes = previewPoints.map(({ longitude }) => longitude);
     const minLatitude = Math.min(...latitudes);
     const maxLatitude = Math.max(...latitudes);
     const minLongitude = Math.min(...longitudes);
@@ -51,24 +66,43 @@ function drawPreview() {
     const latitudeRange = maxLatitude - minLatitude || 1;
     const longitudeRange = maxLongitude - minLongitude || 1;
 
-    context.strokeStyle = '#3b82f6';
-    context.lineWidth = 2;
-    context.beginPath();
-    selectedPoints.value.forEach(({ latitude, longitude }, index) => {
-      const x = margin + ((longitude - minLongitude) / longitudeRange) * width;
-      const y = margin + (1 - (latitude - minLatitude) / latitudeRange) * height;
-      if (index === 0) {
-        context.moveTo(x, y);
+    const coordinates = previewPoints.map(({ latitude, longitude }) => ({
+      x: margin + ((longitude - minLongitude) / longitudeRange) * width,
+      y: margin + (1 - (latitude - minLatitude) / latitudeRange) * height,
+    }));
+    let lastPointIndex = 0;
+
+    const animate = () => {
+      if (generation !== previewGeneration) {
+        return;
+      }
+
+      context.clearRect(0, 0, element.width, element.height);
+      context.strokeStyle = '#3b82f6';
+      context.lineWidth = 2;
+      context.beginPath();
+      context.moveTo(coordinates[0].x, coordinates[0].y);
+      for (let index = 1; index <= lastPointIndex; index += 1) {
+        context.lineTo(coordinates[index].x, coordinates[index].y);
+      }
+      context.stroke();
+
+      if (lastPointIndex < coordinates.length - 1) {
+        lastPointIndex += 1;
+        animationFrame = requestAnimationFrame(animate);
       }
       else {
-        context.lineTo(x, y);
+        animationFrame = undefined;
       }
-    });
-    context.stroke();
+    };
+
+    animate();
   });
 }
 
 async function onFileSelected(file: File) {
+  const selection = ++selectionGeneration;
+  cancelPreview();
   error.value = '';
   points.value = [];
   startDate.value = '';
@@ -80,7 +114,16 @@ async function onFileSelected(file: File) {
   }
 
   try {
-    const result = normalizeTimeline(JSON.parse(await file.text()));
+    const input = JSON.parse(await file.text());
+    if (selection !== selectionGeneration) {
+      return;
+    }
+
+    const result = normalizeTimeline(input);
+    if (selection !== selectionGeneration) {
+      return;
+    }
+
     if (result.error) {
       error.value = '읽을 수 있는 Timeline JSON 파일이 아닙니다.';
       return;
@@ -96,7 +139,9 @@ async function onFileSelected(file: File) {
     endDate.value = localDate(points.value[points.value.length - 1].timestamp);
   }
   catch {
-    error.value = '읽을 수 있는 Timeline JSON 파일이 아닙니다.';
+    if (selection === selectionGeneration) {
+      error.value = '읽을 수 있는 Timeline JSON 파일이 아닙니다.';
+    }
   }
 }
 
@@ -108,6 +153,8 @@ async function onInputChange(event: Event) {
 }
 
 function reset() {
+  selectionGeneration += 1;
+  cancelPreview();
   points.value = [];
   startDate.value = '';
   endDate.value = '';
@@ -122,7 +169,7 @@ watch(selectedPoints, async () => {
   drawPreview();
 });
 
-onBeforeUnmount(() => cancelAnimationFrame(animationFrame ?? 0));
+onBeforeUnmount(() => cancelPreview());
 </script>
 
 <template>
@@ -183,7 +230,7 @@ onBeforeUnmount(() => cancelAnimationFrame(animationFrame ?? 0));
         width="640"
         height="256"
         role="img"
-        aria-label="선택한 Timeline 경로 미리보기"
+        :aria-label="`선택한 Timeline 경로 미리보기: ${selectedPoints.length}개 지점`"
         data-test-id="timeline-canvas"
         data-testid="timeline-canvas"
       />
