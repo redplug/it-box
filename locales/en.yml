@@ -396,3 +396,334 @@ tools:
   text-to-binary:
     title: Text to ASCII binary
     description: Convert text to its ASCII binary representation and vice-versa.
+  local:
+    input: Input
+    output: Output
+    sample: Load example
+    reset: Reset
+    localNotice: Inputs are processed only in this browser, without being stored or transmitted.
+    convert: Convert
+    download: Download
+    file: Choose file
+    loading: Processing…
+    copy: Copy result
+    previous: Previous
+    next: Next
+    errors:
+      invalidInput: Check your input and options.
+      invalidJson: Invalid standard JSON. Check quotes and commas.
+      textTooLarge: Text must not exceed 2MiB in UTF-8.
+      fileTooLarge: The file exceeds the supported size limit.
+      unsupported: Unsupported format or browser feature.
+  csv-to-json:
+    title: CSV / TSV to JSON
+    description: Convert CSV or TSV into a JSON array using the first row as headers.
+    inputLabel: CSV / TSV data
+    delimiter: Delimiter
+    csv: CSV (comma)
+    tsv: TSV (tab)
+    hint: The first row must contain unique, nonempty headers. All cell values are preserved as strings.
+    errors:
+      malformed: Invalid quotes or CSV / TSV syntax.
+      headers: The first row must contain unique, nonempty headers.
+      rowLength: A data row has a different cell count from the header row.
+  json-lines-converter:
+    title: JSON Lines converter
+    description: Convert between JSON arrays and JSONL / NDJSON.
+    direction: Direction
+    toJson: JSON Lines to JSON array
+    toLines: JSON array to JSON Lines
+    linesInput: JSON Lines data
+    arrayInput: JSON array
+    errors:
+      arrayRequired: A root JSON array is required to produce JSON Lines.
+      invalidLine: Line {line} is not valid JSON.
+  json-to-typescript:
+    title: JSON to TypeScript
+    description: Generate a TypeScript Root type for nested objects and arrays from a JSON sample.
+    inputLabel: JSON sample
+    hint: Sample properties are required. Empty arrays use unknown[]; optional properties are not inferred.
+    errors:
+      tooDeep: Nesting exceeds the depth limit of 64.
+  json-to-json-schema:
+    title: JSON to JSON Schema
+    description: Generate a Draft 2020-12 JSON Schema from a JSON sample.
+    inputLabel: JSON sample
+    hint: Sample properties are required. Enum, format, and restrictions on additional properties are not inferred.
+    errors:
+      tooDeep: Nesting exceeds the depth limit of 64.
+  json-merge:
+    title: JSON deep merge
+    description: Recursively merge two JSON objects with right-side values taking precedence.
+    leftInput: Left JSON object
+    rightInput: Right JSON object
+    hint: Objects merge recursively. Arrays, null, and other conflicting values are replaced by the right-hand value.
+    errors:
+      objectsRequired: Both inputs must be root JSON objects.
+      tooDeep: Nesting exceeds the depth limit of 64.
+  json-pointer:
+    title: JSON Pointer lookup
+    description: Look up values in JSON using RFC 6901 JSON Pointer.
+    inputLabel: JSON data
+    pointer: JSON Pointer
+    hint: An empty pointer returns the root. Encode ~ as ~0 and / as ~1 in keys. URI fragments are not supported.
+    errors:
+      invalidPointer: A pointer must be empty or start with / and use only ~0 and ~1 escapes.
+      arrayIndex: An array index must be 0 or a nonnegative integer without leading zeros.
+      missing: No value exists at the pointer path.
+  json-table:
+    title: JSON table viewer
+    description: View an array of JSON objects as a paginated table with a union of columns.
+    inputLabel: JSON object array
+    hint: Columns follow first appearance. Missing values use —; nested values use JSON. Limited to 100 columns and 100,000 total cells.
+    caption: JSON data table
+    empty: There are no rows to display.
+    pageStatus: Page {page} of {pages}
+    errors:
+      objectsRequired: Input must be a root array containing only JSON objects.
+      tooWide: At most 100 columns can be displayed. Reduce the number of columns.
+      tooManyCells: The table can contain at most 100,000 cells. Reduce its rows or columns.
+  env-to-json:
+    title: .env to JSON converter
+    description: Convert between .env settings and flat JSON objects with string values.
+    direction: Direction
+    toJson: .env to JSON
+    toEnv: JSON to .env
+    envInput: .env settings
+    jsonInput: JSON object with string values
+    hint: Values remain literal without variable expansion. Use one assignment per line and encode newlines as \n inside double quotes.
+    errors:
+      invalidEnv: Invalid .env syntax. Check variable names and closing quotes.
+      duplicate: A variable name appears more than once.
+      stringsRequired: A root JSON object with valid variable names and string values is required.
+  query-string-converter:
+    title: Query String ↔ JSON
+    description: Convert URL query strings and flat string-valued JSON objects while preserving repeated keys.
+    direction: Direction
+    toJson: Query string → JSON
+    toQuery: JSON → query string
+    errors:
+      invalidShape: JSON must be an object containing only strings or arrays of strings.
+  http-headers-parser:
+    title: HTTP Headers Parser
+    description: Parse pasted HTTP headers into a table and JSON while preserving repeated values.
+    inputLabel: HTTP header block
+    name: Header name
+    values: Values
+    errors:
+      invalidHeaders: Enter valid HTTP headers, one per line. Folded headers, control characters and bodies are unsupported.
+  cookie-parser:
+    title: Cookie Request Header Parser
+    description: Split pasted Cookie request headers into name/value pairs without overwriting duplicates.
+    inputLabel: Cookie request header
+    requestOnly: Only pasted Cookie request headers are parsed. Set-Cookie response headers are unsupported.
+    name: Name
+    value: Value
+    errors:
+      invalidCookie: Enter a Cookie request header containing name=value pairs. Control characters and Set-Cookie are unsupported.
+  http-request-generator:
+    title: HTTP Request Code Generator
+    description: Generate fetch code and POSIX curl commands from HTTP request details.
+    url: HTTP or HTTPS URL
+    method: Method
+    headers: Headers (one per line)
+    body: Body (optional)
+    fetchLabel: fetch code
+    curlLabel: POSIX curl command
+    snippetsOnly: Generates code only; no request is executed. GET and HEAD cannot include a body.
+    errors:
+      invalidMethod: Select a valid HTTP method. CONNECT, TRACE and TRACK are unsupported.
+      invalidUrl: Enter an absolute HTTP or HTTPS URL without whitespace, control characters or credentials.
+      bodyNotAllowed: GET and HEAD requests cannot include a body.
+      invalidHeaders: "Enter one name: value header per line. Request lines, folded headers, control characters and characters above U+00FF are not allowed."
+      invalidBody: The body contains a NUL character that cannot be represented in POSIX shell arguments.
+  html-to-text:
+    title: HTML to Text
+    description: Extract plain text from HTML while decoding entities and retaining block line breaks.
+    inputLabel: HTML input
+  html-link-extractor:
+    title: HTML Link Extractor
+    description: Extract href and text as JSON and optionally resolve relative links against a base URL.
+    inputLabel: HTML input
+    baseLabel: Base URL (optional)
+    basePlaceholder: https://example.com/docs/page
+    errors:
+      invalidBase: Enter a valid absolute HTTP or HTTPS base URL.
+  unicode-normalizer:
+    title: Unicode Normalizer
+    description: Normalize text with NFC, NFD, NFKC or NFKD and show whether it changed.
+    form: Normalization form
+    changed: The normalized result differs from the input.
+    unchanged: The input is already normalized in this form.
+    errors:
+      invalidForm: Select NFC, NFD, NFKC or NFKD.
+  invisible-character-detector:
+    title: Invisible Character Detector
+    description: Locate control characters, NBSP, zero-width characters and bidirectional markers by code point.
+    positionNote: Positions are zero-based Unicode code point indices. Characters are not automatically deleted.
+    summary: "Characters found: {count}"
+    position: Position (zero-based)
+    codePoint: Code point
+    name: Unicode name
+  line-ending-converter:
+    title: Line Ending Converter
+    description: Convert text line endings to LF, CRLF or CR and download the selected bytes.
+    ending: Output line ending
+    downloadNote: Other content and the final-newline state are preserved. Downloads use the exact selected line-ending bytes.
+    errors:
+      invalidEnding: Select LF, CRLF or CR.
+  string-escape-converter:
+    title: String Escape Converter
+    description: Safely convert between plain text and a JSON string literal.
+    direction: Direction
+    encode: Text → JSON string
+    decode: JSON string → text
+    errors:
+      stringOnly: Enter a JSON string literal. Numbers, arrays, objects and null are not allowed.
+  text-set-operations:
+    title: Text Set Operations
+    description: Calculate union, intersection and difference of two line lists while keeping first-appearance order.
+    first: First list (one item per line)
+    second: Second list (one item per line)
+    operation: Operation
+    union: Union (A ∪ B)
+    intersection: Intersection (A ∩ B)
+    difference: Difference (A − B)
+    exactNote: Whitespace-only lines are skipped. Other lines are compared exactly, including spaces and case.
+    errors:
+      invalidOperation: Select union, intersection or difference.
+  word-frequency-counter:
+    title: Word Frequency Counter
+    description: Count Unicode letter and number tokens and sort them by frequency.
+    caseSensitive: Case-sensitive
+    tokenNote: Tokens use Unicode letters and numbers. This does not perform morphological analysis.
+    summary: "Unique tokens: {count}"
+    word: Token
+    count: Count
+  css-gradient-generator:
+    title: CSS Gradient Generator
+    description: Preview a two-color linear gradient and generate CSS from its colors and angle.
+    firstColor: Start color
+    secondColor: End color
+    angle: Angle (degrees)
+    preview: Linear gradient preview
+    errors:
+      invalidColor: Enter two valid colors in HEX, RGB, HSL, or named-color format.
+      invalidAngle: Enter a finite number for the angle.
+  css-box-shadow-generator:
+    title: CSS Box Shadow Generator
+    description: Adjust offsets, blur, spread, color, and opacity to preview and generate box-shadow CSS.
+    x: Horizontal offset (px)
+    y: Vertical offset (px)
+    blur: Blur radius (px)
+    spread: Spread radius (px)
+    color: Shadow color
+    opacity: Opacity (0–1)
+    inset: Inner shadow (inset)
+    preview: Shadow preview
+    errors:
+      invalidNumbers: Enter finite offsets and spread, and a finite blur radius of zero or greater.
+      invalidOpacity: Opacity must be a number between 0 and 1.
+      invalidColor: Enter a valid HEX, RGB, HSL, or named color.
+  css-border-radius-generator:
+    title: CSS Border Radius Generator
+    description: Set each corner radius independently and generate border-radius CSS with a preview.
+    topLeft: Top left (px)
+    topRight: Top right (px)
+    bottomRight: Bottom right (px)
+    bottomLeft: Bottom left (px)
+    preview: Corner preview
+    errors:
+      invalidRadius: Enter a finite radius of zero or greater for every corner.
+  css-clamp-calculator:
+    title: CSS Clamp Font Calculator
+    description: Calculate fluid font-size CSS in rem and vw from font sizes at two viewport widths.
+    minFont: Minimum font size (px)
+    maxFont: Maximum font size (px)
+    minWidth: Minimum viewport width (px)
+    maxWidth: Maximum viewport width (px)
+    rootFont: Root font size (px)
+    rootNotice: The endpoints match at the specified root font size. Changing the actual root font size also changes the rem-based sizes.
+    errors:
+      invalidWidths: Viewport widths must be finite and positive, with the maximum greater than the minimum.
+      invalidFonts: Font sizes must be finite and positive, with the maximum at least the minimum.
+      invalidRoot: Enter a finite positive root font size.
+      overflow: The calculation exceeds the supported numeric range. Use less extreme values.
+  color-contrast-checker:
+    title: Color Contrast Checker
+    description: Check contrast and WCAG AA/AAA text thresholds for opaque foreground and background colors.
+    foreground: Text color (opaque)
+    background: Background color (opaque)
+    ratio: Contrast ratio
+    normalPreview: Normal-size text preview
+    largePreview: Large text preview
+    requirements: WCAG text contrast requirements
+    level: Requirement
+    minimum: Minimum ratio
+    status: Result
+    aaNormal: AA normal text
+    aaLarge: AA large text
+    aaaNormal: AAA normal text
+    aaaLarge: AAA large text
+    pass: Pass
+    fail: Fail
+    largeNotice: Large text is at least 24px regular or approximately 18.67px bold. The displayed ratio is floored to two decimal places and is never rounded up into a passing result.
+    errors:
+      invalidColor: Enter a valid HEX, RGB, HSL, or named color.
+      transparentColor: Text and background colors must be fully opaque. Alpha values below 1 are not supported.
+  data-size-converter:
+    title: Data Size Converter
+    description: Convert bits, bytes, SI, and IEC data sizes and compare every supported unit.
+    value: Size
+    unit: Unit
+    system: Unit system
+    base: Base
+    si: SI (powers of 1000)
+    iec: IEC (powers of 1024)
+    systemNotice: 1 byte = 8 bits. kB/MB/GB/TB use powers of 1000; KiB/MiB/GiB/TiB use powers of 1024.
+    errors:
+      invalidValue: Enter a finite number of zero or greater.
+      invalidUnit: Select a supported data-size unit.
+      overflow: A conversion exceeds the supported numeric range. Use a less extreme value.
+  duration-converter:
+    title: Duration Converter
+    description: Convert fixed durations between milliseconds, seconds, minutes, hours, days, and weeks.
+    value: Duration
+    unit: Unit
+    durationNotice: "These are fixed durations: 1 day is 24 hours and 1 week is 7 days. Calendar dates and time-zone changes are not included."
+    units:
+      ms: Milliseconds (ms)
+      s: Seconds (s)
+      min: Minutes (min)
+      h: Hours (h)
+      day: Days
+      week: Weeks
+    errors:
+      invalidValue: Enter a finite number of zero or greater.
+      invalidUnit: Select a supported duration unit.
+      overflow: A conversion exceeds the supported numeric range. Use a less extreme value.
+  image-resizer:
+    title: Image resizer
+    description: Resize local images and download the result as PNG.
+    width: Width (px)
+    height: Height (px)
+    keepRatio: Keep aspect ratio
+    errors:
+      dimensions: Dimensions must be positive integers and total pixels must not exceed 16 million.
+  image-converter:
+    title: Image format and quality converter
+    description: Convert local images to PNG, JPEG or WebP and adjust output quality.
+    format: Output format
+    quality: Quality (0–1, JPEG and WebP)
+    preview: Converted image preview
+    limit: PNG, JPEG or WebP; maximum 10MiB and 16 million pixels. JPEG transparent areas become white.
+    errors:
+      decode: Unable to decode the image. Check whether it is damaged and has a supported format.
+  file-hash-calculator:
+    title: File hash calculator
+    description: Calculate local file SHA-256, SHA-384 and SHA-512 hashes in your browser.
+    algorithm: Hash algorithm
+    calculate: Calculate hash
+    limit: "File size limit: 50MiB. The entire file is read into memory."
+    errors:
+      unavailable: Web Crypto is unavailable. Use a supported browser over HTTPS or localhost.

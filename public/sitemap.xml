@@ -89,4 +89,34 @@
   <url><loc>https://it-box.dev/yaml-prettify</loc></url>
   <url><loc>https://it-box.dev/yaml-to-json-converter</loc></url>
   <url><loc>https://it-box.dev/yaml-to-toml</loc></url>
+  <url><loc>https://it-box.dev/csv-to-json</loc></url>
+  <url><loc>https://it-box.dev/json-lines-converter</loc></url>
+  <url><loc>https://it-box.dev/json-to-typescript</loc></url>
+  <url><loc>https://it-box.dev/json-to-json-schema</loc></url>
+  <url><loc>https://it-box.dev/json-merge</loc></url>
+  <url><loc>https://it-box.dev/json-pointer</loc></url>
+  <url><loc>https://it-box.dev/json-table</loc></url>
+  <url><loc>https://it-box.dev/env-to-json</loc></url>
+  <url><loc>https://it-box.dev/query-string-converter</loc></url>
+  <url><loc>https://it-box.dev/http-headers-parser</loc></url>
+  <url><loc>https://it-box.dev/cookie-parser</loc></url>
+  <url><loc>https://it-box.dev/http-request-generator</loc></url>
+  <url><loc>https://it-box.dev/html-to-text</loc></url>
+  <url><loc>https://it-box.dev/html-link-extractor</loc></url>
+  <url><loc>https://it-box.dev/unicode-normalizer</loc></url>
+  <url><loc>https://it-box.dev/invisible-character-detector</loc></url>
+  <url><loc>https://it-box.dev/line-ending-converter</loc></url>
+  <url><loc>https://it-box.dev/string-escape-converter</loc></url>
+  <url><loc>https://it-box.dev/text-set-operations</loc></url>
+  <url><loc>https://it-box.dev/word-frequency-counter</loc></url>
+  <url><loc>https://it-box.dev/css-gradient-generator</loc></url>
+  <url><loc>https://it-box.dev/css-box-shadow-generator</loc></url>
+  <url><loc>https://it-box.dev/css-border-radius-generator</loc></url>
+  <url><loc>https://it-box.dev/css-clamp-calculator</loc></url>
+  <url><loc>https://it-box.dev/color-contrast-checker</loc></url>
+  <url><loc>https://it-box.dev/data-size-converter</loc></url>
+  <url><loc>https://it-box.dev/duration-converter</loc></url>
+  <url><loc>https://it-box.dev/image-resizer</loc></url>
+  <url><loc>https://it-box.dev/image-converter</loc></url>
+  <url><loc>https://it-box.dev/file-hash-calculator</loc></url>
 </urlset>
