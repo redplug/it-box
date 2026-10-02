@@ -113,6 +113,9 @@ tools:
   camera-recorder:
     title: '카메라 녹화기'
     description: '웹캠이나 카메라로 사진을 찍거나 영상을 녹화합니다.'
+  google-timeline-visualizer:
+    title: 'Google Timeline 로컬 시각화'
+    description: 'Google Timeline JSON을 브라우저에서만 분석해 이동 경로를 미리 봅니다.'
   keycode-info:
     title: '키 코드 정보'
     description: '누른 키의 JavaScript 키 코드, 코드, 위치, 보조 키 정보를 확인합니다.'

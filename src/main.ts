@@ -4,6 +4,7 @@ import { createHead } from '@vueuse/head';
 
 import { registerSW } from 'virtual:pwa-register';
 import shadow from 'vue-shadow-dom';
+import { startAnalytics } from './analytics';
 import { plausible } from './plugins/plausible.plugin';
 
 import 'virtual:uno.css';
@@ -16,6 +17,7 @@ import router from './router';
 import { i18nPlugin } from './plugins/i18n.plugin';
 
 registerSW();
+startAnalytics();
 
 const app = createApp(App);
 

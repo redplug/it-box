@@ -9,6 +9,13 @@ export interface ToolGuide {
 }
 
 export const toolGuides: Record<string, ToolGuide> = {
+  '/google-timeline-visualizer': {
+    purpose: '내 Google Timeline JSON을 브라우저에서만 분석해 선택한 기간의 이동 경로와 거리를 미리 봅니다.',
+    steps: ['Google Timeline JSON 파일을 선택합니다.', '시작일과 종료일을 골라 확인할 기간을 정합니다.', '지점 수·거리 요약과 Canvas 경로 미리보기를 확인합니다.'],
+    example: '선택한 기간의 좌표 지점이 Canvas에 선으로 표시되어 이동 흐름을 빠르게 확인할 수 있습니다.',
+    limitations: '지도, MP4·GIF 생성, 장소명 조회를 제공하지 않으며 JSON 형식에 따라 읽을 수 있는 지점이 달라질 수 있습니다.',
+    safety: '본인 데이터만 선택하고, 공용 기기에서는 사용 후 페이지를 닫아 다른 사람이 위치 정보를 보지 못하게 하세요.',
+  },
   '/json-prettify': {
     purpose: '읽기 어려운 JSON을 들여쓰기해 구조를 확인하고, 문법 오류를 빠르게 찾습니다.',
     steps: ['작은 샘플부터 붙여 넣습니다.', '오류 위치와 괄호 짝을 확인합니다.', '정상화된 결과를 저장하기 전에 민감한 값을 다시 점검합니다.'],
