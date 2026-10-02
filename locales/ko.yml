@@ -359,3 +359,334 @@ tools:
   xml-to-json:
     title: 'XML → JSON 변환기'
     description: 'XML 데이터를 JSON으로 변환합니다.'
+  local:
+    input: 입력
+    output: 결과
+    sample: 예제 입력
+    reset: 초기화
+    localNotice: 입력은 현재 브라우저에서만 처리하며 저장하거나 전송하지 않습니다.
+    convert: 변환
+    download: 다운로드
+    file: 파일 선택
+    loading: 처리 중…
+    copy: 결과 복사
+    previous: 이전
+    next: 다음
+    errors:
+      invalidInput: 입력값과 옵션을 확인하세요.
+      invalidJson: 표준 JSON 형식이 아닙니다. 따옴표와 쉼표를 확인하세요.
+      textTooLarge: 텍스트는 UTF-8 기준 2MiB 이하만 처리할 수 있습니다.
+      fileTooLarge: 파일이 허용된 크기를 초과합니다.
+      unsupported: 지원하지 않는 형식 또는 브라우저 기능입니다.
+  csv-to-json:
+    title: CSV / TSV → JSON
+    description: CSV와 TSV의 첫 행을 헤더로 사용해 JSON 배열로 변환합니다.
+    inputLabel: CSV / TSV 데이터
+    delimiter: 구분자
+    csv: CSV (쉼표)
+    tsv: TSV (탭)
+    hint: 첫 행은 비어 있지 않은 고유한 헤더여야 합니다. 모든 셀 값은 문자열로 보존됩니다.
+    errors:
+      malformed: 따옴표 또는 CSV / TSV 문법이 올바르지 않습니다.
+      headers: 첫 행의 헤더는 비어 있지 않아야 하며 중복될 수 없습니다.
+      rowLength: 데이터 행의 셀 수가 헤더 수와 다릅니다.
+  json-lines-converter:
+    title: JSON Lines 변환기
+    description: JSON 배열과 JSONL / NDJSON을 양방향 변환합니다.
+    direction: 변환 방향
+    toJson: JSON Lines → JSON 배열
+    toLines: JSON 배열 → JSON Lines
+    linesInput: JSON Lines 데이터
+    arrayInput: JSON 배열
+    errors:
+      arrayRequired: JSON Lines로 변환하려면 최상위 JSON 배열이 필요합니다.
+      invalidLine: "{line}번째 줄이 올바른 JSON이 아닙니다."
+  json-to-typescript:
+    title: JSON → TypeScript 타입
+    description: JSON 샘플에서 중첩 객체와 배열의 TypeScript Root 타입을 생성합니다.
+    inputLabel: JSON 샘플
+    hint: 샘플에 있는 속성은 필수로 생성됩니다. 빈 배열은 unknown[]이며 선택적 속성은 추론하지 않습니다.
+    errors:
+      tooDeep: 중첩 깊이가 64를 초과합니다.
+  json-to-json-schema:
+    title: JSON → JSON Schema
+    description: JSON 샘플에서 Draft 2020-12 JSON Schema를 생성합니다.
+    inputLabel: JSON 샘플
+    hint: 샘플 속성은 required에 포함됩니다. enum, format, 추가 속성 금지 규칙은 추론하지 않습니다.
+    errors:
+      tooDeep: 중첩 깊이가 64를 초과합니다.
+  json-merge:
+    title: JSON 깊은 병합
+    description: 두 JSON 객체를 재귀 병합하며 충돌 값은 오른쪽 객체로 덮어씁니다.
+    leftInput: 왼쪽 JSON 객체
+    rightInput: 오른쪽 JSON 객체
+    hint: 객체는 재귀 병합합니다. 배열, null과 다른 충돌 값은 오른쪽 값으로 대체됩니다.
+    errors:
+      objectsRequired: 두 입력 모두 최상위 JSON 객체여야 합니다.
+      tooDeep: 중첩 깊이가 64를 초과합니다.
+  json-pointer:
+    title: JSON Pointer 조회
+    description: RFC 6901 JSON Pointer로 JSON 안의 값을 정확하게 조회합니다.
+    inputLabel: JSON 데이터
+    pointer: JSON Pointer
+    hint: 빈 포인터는 전체 JSON을 반환합니다. 키의 ~는 ~0, /는 ~1로 표시합니다. URI fragment는 지원하지 않습니다.
+    errors:
+      invalidPointer: 포인터는 비어 있거나 /로 시작해야 하며 ~0과 ~1만 이스케이프로 사용할 수 있습니다.
+      arrayIndex: 배열 인덱스는 0 또는 선행 0 없는 음이 아닌 정수여야 합니다.
+      missing: 포인터 경로에 해당하는 값이 없습니다.
+  json-table:
+    title: JSON 표 보기
+    description: JSON 객체 배열을 열 합집합과 페이지 이동이 있는 표로 표시합니다.
+    inputLabel: JSON 객체 배열
+    hint: 열은 처음 등장한 순서로 표시합니다. 없는 값은 —, 중첩 값은 JSON으로 표시합니다. 최대 100열, 전체 100,000셀까지 지원합니다.
+    caption: JSON 데이터 표
+    empty: 표시할 행이 없습니다.
+    pageStatus: "{page} / {pages} 페이지"
+    errors:
+      objectsRequired: 입력은 JSON 객체로만 이루어진 최상위 배열이어야 합니다.
+      tooWide: 최대 100열까지 표시할 수 있습니다. 열의 수를 줄여주세요.
+      tooManyCells: 전체 표는 최대 100,000셀까지 표시할 수 있습니다. 행이나 열을 줄여주세요.
+  env-to-json:
+    title: .env ↔ JSON 변환
+    description: .env 설정과 문자열 값으로만 된 평면 JSON 객체를 양방향 변환합니다.
+    direction: 변환 방향
+    toJson: .env → JSON
+    toEnv: JSON → .env
+    envInput: .env 설정
+    jsonInput: 문자열 값의 JSON 객체
+    hint: 변수 확장 없이 문자열 그대로 변환합니다. 한 줄에 한 변수를 쓰며 줄바꿈은 큰따옴표 안에서 \n으로 표시합니다.
+    errors:
+      invalidEnv: .env 문법이 올바르지 않습니다. 유효한 변수 이름과 닫힌 따옴표를 확인하세요.
+      duplicate: 같은 변수 이름이 두 번 이상 나타납니다.
+      stringsRequired: 유효한 변수 이름과 문자열 값만 가진 최상위 JSON 객체가 필요합니다.
+  query-string-converter:
+    title: 쿼리 문자열 ↔ JSON
+    description: URL 쿼리 문자열과 문자열 기반 JSON 객체를 변환하고 반복 키를 보존합니다.
+    direction: 변환 방향
+    toJson: 쿼리 문자열 → JSON
+    toQuery: JSON → 쿼리 문자열
+    errors:
+      invalidShape: JSON은 문자열 또는 문자열 배열만 값으로 갖는 객체여야 합니다.
+  http-headers-parser:
+    title: HTTP 헤더 분석기
+    description: 붙여 넣은 HTTP 헤더를 표와 JSON으로 분석하고 반복 값을 보존합니다.
+    inputLabel: HTTP 헤더 블록
+    name: 헤더 이름
+    values: 값
+    errors:
+      invalidHeaders: 유효한 HTTP 헤더를 한 줄에 하나씩 입력하세요. 접힌 헤더, 제어 문자와 본문은 지원하지 않습니다.
+  cookie-parser:
+    title: Cookie 요청 헤더 분석기
+    description: 붙여 넣은 Cookie 요청 헤더의 이름과 값을 분리하고 중복 이름을 유지합니다.
+    inputLabel: Cookie 요청 헤더
+    requestOnly: 붙여 넣은 Cookie 요청 헤더만 분석합니다. Set-Cookie 응답 헤더는 지원하지 않습니다.
+    name: 이름
+    value: 값
+    errors:
+      invalidCookie: Cookie 요청 헤더를 name=value 쌍으로 입력하세요. 제어 문자와 Set-Cookie는 지원하지 않습니다.
+  http-request-generator:
+    title: HTTP 요청 코드 생성기
+    description: HTTP 요청 정보를 fetch 코드와 POSIX curl 명령으로 생성합니다.
+    url: HTTP 또는 HTTPS URL
+    method: 메서드
+    headers: 헤더 (한 줄에 하나)
+    body: 본문 (선택 사항)
+    fetchLabel: fetch 코드
+    curlLabel: POSIX curl 명령
+    snippetsOnly: 코드만 생성하며 요청을 실행하지 않습니다. GET과 HEAD에는 본문을 넣을 수 없습니다.
+    errors:
+      invalidMethod: 유효한 HTTP 메서드를 선택하세요. CONNECT, TRACE, TRACK은 지원하지 않습니다.
+      invalidUrl: 공백, 제어 문자나 자격 증명이 없는 절대 HTTP 또는 HTTPS URL을 입력하세요.
+      bodyNotAllowed: GET과 HEAD 요청에는 본문을 넣을 수 없습니다.
+      invalidHeaders: "헤더를 name: value 형식으로 한 줄에 하나씩 입력하세요. 요청 행, 접힌 헤더, 제어 문자와 U+00FF 초과 문자는 허용되지 않습니다."
+      invalidBody: POSIX 셸 인수에 포함할 수 없는 NUL 문자가 본문에 있습니다.
+  html-to-text:
+    title: HTML → 텍스트
+    description: HTML 엔티티와 블록 줄바꿈을 보존하면서 HTML에서 일반 텍스트를 추출합니다.
+    inputLabel: HTML 입력
+  html-link-extractor:
+    title: HTML 링크 추출기
+    description: HTML의 링크 주소와 텍스트를 JSON으로 추출하고 기준 URL로 상대 주소를 해석합니다.
+    inputLabel: HTML 입력
+    baseLabel: 기준 URL (선택 사항)
+    basePlaceholder: https://example.com/docs/page
+    errors:
+      invalidBase: 기준 URL에 유효한 절대 HTTP 또는 HTTPS URL을 입력하세요.
+  unicode-normalizer:
+    title: Unicode 정규화
+    description: NFC, NFD, NFKC, NFKD 형태로 텍스트를 정규화하고 변경 여부를 표시합니다.
+    form: 정규화 형태
+    changed: 입력과 다른 정규화 결과입니다.
+    unchanged: 선택한 형태에서 입력이 이미 정규화되어 있습니다.
+    errors:
+      invalidForm: NFC, NFD, NFKC 또는 NFKD를 선택하세요.
+  invisible-character-detector:
+    title: 보이지 않는 문자 탐지기
+    description: 제어 문자, NBSP, 너비 없는 문자와 양방향 표식을 위치 및 코드 포인트로 확인합니다.
+    positionNote: 위치는 0부터 세는 Unicode 코드 포인트 기준입니다. 문자를 자동 삭제하지 않습니다.
+    summary: "발견한 문자: {count}개"
+    position: 위치 (0부터)
+    codePoint: 코드 포인트
+    name: Unicode 이름
+  line-ending-converter:
+    title: 줄바꿈 형식 변환기
+    description: 텍스트의 줄바꿈을 LF, CRLF 또는 CR로 통일하고 정확한 바이트로 다운로드합니다.
+    ending: 출력 줄바꿈
+    downloadNote: 다른 내용과 마지막 줄바꿈 유무를 보존합니다. 다운로드 파일은 선택한 줄바꿈 바이트를 사용합니다.
+    errors:
+      invalidEnding: LF, CRLF 또는 CR을 선택하세요.
+  string-escape-converter:
+    title: 문자열 이스케이프 변환기
+    description: 텍스트와 JSON 문자열 리터럴을 안전하게 서로 변환합니다.
+    direction: 변환 방향
+    encode: 텍스트 → JSON 문자열
+    decode: JSON 문자열 → 텍스트
+    errors:
+      stringOnly: JSON 문자열 리터럴만 입력하세요. 숫자, 배열, 객체와 null은 허용되지 않습니다.
+  text-set-operations:
+    title: 텍스트 집합 연산
+    description: 두 줄 목록의 합집합, 교집합과 차집합을 계산하고 처음 등장한 순서를 유지합니다.
+    first: 첫 번째 목록 (한 줄에 하나)
+    second: 두 번째 목록 (한 줄에 하나)
+    operation: 연산
+    union: 합집합 (A ∪ B)
+    intersection: 교집합 (A ∩ B)
+    difference: 차집합 (A − B)
+    exactNote: 공백뿐인 줄은 건너뜁니다. 나머지 줄은 공백과 대소문자를 포함해 정확히 비교합니다.
+    errors:
+      invalidOperation: 합집합, 교집합 또는 차집합을 선택하세요.
+  word-frequency-counter:
+    title: 단어 빈도 카운터
+    description: Unicode 문자와 숫자 토큰의 빈도를 세고 빈도순으로 표시합니다.
+    caseSensitive: 대소문자 구분
+    tokenNote: Unicode 문자·숫자를 기준으로 토큰을 나눕니다. 형태소 분석은 하지 않습니다.
+    summary: "고유 토큰: {count}개"
+    word: 토큰
+    count: 빈도
+  css-gradient-generator:
+    title: CSS 그라데이션 생성기
+    description: 두 색상과 각도로 선형 그라데이션을 미리 보고 CSS를 생성하세요.
+    firstColor: 시작 색상
+    secondColor: 끝 색상
+    angle: 각도 (도)
+    preview: 선형 그라데이션 미리보기
+    errors:
+      invalidColor: 유효한 색상 두 개를 입력하세요. HEX, RGB, HSL 또는 색상 이름을 사용할 수 있습니다.
+      invalidAngle: 각도에 유한한 숫자를 입력하세요.
+  css-box-shadow-generator:
+    title: CSS 박스 그림자 생성기
+    description: 그림자의 위치, 흐림, 확산, 색상과 불투명도를 조절하고 CSS를 생성하세요.
+    x: 가로 이동 (px)
+    y: 세로 이동 (px)
+    blur: 흐림 반경 (px)
+    spread: 확산 반경 (px)
+    color: 그림자 색상
+    opacity: 불투명도 (0–1)
+    inset: 내부 그림자 (inset)
+    preview: 그림자 미리보기
+    errors:
+      invalidNumbers: 이동과 확산에 유한한 숫자를, 흐림에 0 이상의 유한한 숫자를 입력하세요.
+      invalidOpacity: 불투명도는 0부터 1 사이의 숫자여야 합니다.
+      invalidColor: 유효한 HEX, RGB, HSL 또는 색상 이름을 입력하세요.
+  css-border-radius-generator:
+    title: CSS 모서리 반경 생성기
+    description: 네 모서리의 반경을 따로 조절하고 border-radius CSS를 생성하세요.
+    topLeft: 왼쪽 위 (px)
+    topRight: 오른쪽 위 (px)
+    bottomRight: 오른쪽 아래 (px)
+    bottomLeft: 왼쪽 아래 (px)
+    preview: 모서리 미리보기
+    errors:
+      invalidRadius: 모든 모서리 반경에 0 이상의 유한한 숫자를 입력하세요.
+  css-clamp-calculator:
+    title: CSS clamp 글꼴 계산기
+    description: 두 화면 너비에서 원하는 글꼴 크기를 기준으로 rem과 vw를 사용하는 clamp를 계산하세요.
+    minFont: 최소 글꼴 크기 (px)
+    maxFont: 최대 글꼴 크기 (px)
+    minWidth: 최소 화면 너비 (px)
+    maxWidth: 최대 화면 너비 (px)
+    rootFont: 루트 글꼴 크기 (px)
+    rootNotice: 지정한 루트 글꼴 크기에서 두 화면 너비의 글꼴 크기를 맞춥니다. 실제 루트 글꼴 크기가 달라지면 rem 값의 크기도 달라집니다.
+    errors:
+      invalidWidths: 화면 너비는 유한한 양수여야 하며 최대 너비가 최소 너비보다 커야 합니다.
+      invalidFonts: 글꼴 크기는 유한한 양수여야 하며 최대 크기가 최소 크기 이상이어야 합니다.
+      invalidRoot: 루트 글꼴 크기에 유한한 양수를 입력하세요.
+      overflow: 계산 결과가 표현 가능한 숫자 범위를 벗어났습니다. 더 작은 범위의 값을 사용하세요.
+  color-contrast-checker:
+    title: 색상 대비 검사기
+    description: 불투명한 글자와 배경 색상의 대비율 및 WCAG AA·AAA 텍스트 기준을 확인하세요.
+    foreground: 글자 색상 (불투명)
+    background: 배경 색상 (불투명)
+    ratio: 대비율
+    normalPreview: 일반 크기 글자 미리보기
+    largePreview: 큰 글자 미리보기
+    requirements: WCAG 텍스트 대비 기준
+    level: 기준
+    minimum: 최소 대비율
+    status: 판정
+    aaNormal: AA 일반 글자
+    aaLarge: AA 큰 글자
+    aaaNormal: AAA 일반 글자
+    aaaLarge: AAA 큰 글자
+    pass: 통과
+    fail: 미달
+    largeNotice: 큰 글자는 일반 굵기 24px 이상 또는 굵은 글자 약 18.67px 이상입니다. 표시되는 대비율은 소수 둘째 자리에서 버림하며 판정을 통과시키기 위해 반올림하지 않습니다.
+    errors:
+      invalidColor: 유효한 HEX, RGB, HSL 또는 색상 이름을 입력하세요.
+      transparentColor: 글자와 배경 색상은 완전히 불투명해야 합니다. 알파값이 1 미만인 색상은 지원하지 않습니다.
+  data-size-converter:
+    title: 데이터 크기 변환기
+    description: 비트, 바이트, SI와 IEC 데이터 크기 단위를 변환하고 모든 결과를 비교하세요.
+    value: 크기
+    unit: 단위
+    system: 단위 체계
+    base: 기본
+    si: SI (1000 배수)
+    iec: IEC (1024 배수)
+    systemNotice: 1 byte = 8 bit. kB·MB·GB·TB는 1000 배수, KiB·MiB·GiB·TiB는 1024 배수입니다.
+    errors:
+      invalidValue: 0 이상의 유한한 숫자를 입력하세요.
+      invalidUnit: 지원되는 데이터 크기 단위를 선택하세요.
+      overflow: 변환 결과가 표현 가능한 숫자 범위를 벗어났습니다. 너무 크거나 작은 값을 줄여 주세요.
+  duration-converter:
+    title: 기간 단위 변환기
+    description: 밀리초, 초, 분, 시간, 일과 주 단위의 고정 기간을 변환하세요.
+    value: 기간
+    unit: 단위
+    durationNotice: 고정 기간을 계산합니다. 1일은 24시간, 1주는 7일이며 달력 날짜나 시간대 변화는 반영하지 않습니다.
+    units:
+      ms: 밀리초 (ms)
+      s: 초 (s)
+      min: 분 (min)
+      h: 시간 (h)
+      day: 일
+      week: 주
+    errors:
+      invalidValue: 0 이상의 유한한 숫자를 입력하세요.
+      invalidUnit: 지원되는 기간 단위를 선택하세요.
+      overflow: 변환 결과가 표현 가능한 숫자 범위를 벗어났습니다. 너무 크거나 작은 값을 줄여 주세요.
+  image-resizer:
+    title: 이미지 크기 변경
+    description: 이미지의 가로·세로 크기를 조절하고 PNG 파일로 다운로드합니다.
+    width: 가로 크기 (px)
+    height: 세로 크기 (px)
+    keepRatio: 가로세로 비율 유지
+    errors:
+      dimensions: 이미지 크기는 양의 정수여야 하며 전체 픽셀 수는 1,600만 이하입니다.
+  image-converter:
+    title: 이미지 형식·품질 변환
+    description: 로컬 이미지를 PNG, JPEG, WebP로 변환하고 품질을 조절합니다.
+    format: 출력 형식
+    quality: 품질 (0–1, JPEG·WebP)
+    preview: 변환된 이미지 미리보기
+    limit: PNG·JPEG·WebP, 최대 10MiB·1,600만 픽셀. JPEG의 투명 영역은 흰색으로 처리합니다.
+    errors:
+      decode: 이미지 파일을 읽을 수 없습니다. 손상 여부와 실제 형식을 확인하세요.
+  file-hash-calculator:
+    title: 파일 해시 계산
+    description: 파일의 SHA-256, SHA-384, SHA-512 해시를 브라우저에서 계산합니다.
+    algorithm: 해시 알고리즘
+    calculate: 해시 계산
+    limit: "파일 크기 제한: 50MiB. 파일 전체를 메모리에서 읽어 계산합니다."
+    errors:
+      unavailable: 이 브라우저에서는 Web Crypto를 사용할 수 없습니다. HTTPS 또는 localhost에서 실행하세요.

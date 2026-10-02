@@ -58,6 +58,7 @@ const size = computed(() => theme.value.size[sizeName.value]);
     class="c-button"
     :class="{ disabled, round, circle }"
     :to="to"
+    :disabled="tag === 'button' ? disabled : undefined"
     @click="handleClick"
   >
     <slot />

@@ -1,3 +1,4 @@
+import { additionalCryptoTools, additionalDataTools, additionalDevelopmentTools, additionalImageTools, additionalMeasurementTools, additionalTextTools, additionalWebTools } from './additional-tools';
 import { tool as base64FileConverter } from './base64-file-converter';
 import { tool as base64StringConverter } from './base64-string-converter';
 import { tool as basicAuthGenerator } from './basic-auth-generator';
@@ -91,7 +92,7 @@ import { tool as yamlViewer } from './yaml-viewer';
 export const toolsByCategory: ToolCategory[] = [
   {
     name: 'Crypto',
-    components: [tokenGenerator, hashText, bcrypt, uuidGenerator, ulidGenerator, cypher, bip39, hmacGenerator, rsaKeyPairGenerator, passwordStrengthAnalyser, pdfSignatureChecker],
+    components: [...additionalCryptoTools, tokenGenerator, hashText, bcrypt, uuidGenerator, ulidGenerator, cypher, bip39, hmacGenerator, rsaKeyPairGenerator, passwordStrengthAnalyser, pdfSignatureChecker],
   },
   {
     name: 'Converter',
@@ -120,7 +121,7 @@ export const toolsByCategory: ToolCategory[] = [
   },
   {
     name: 'Web',
-    components: [
+    components: [...additionalWebTools,
       urlEncoder,
       htmlEntities,
       urlParser,
@@ -141,11 +142,11 @@ export const toolsByCategory: ToolCategory[] = [
   },
   {
     name: 'Images and videos',
-    components: [qrCodeGenerator, wifiQrCodeGenerator, svgPlaceholderGenerator, cameraRecorder],
+    components: [...additionalImageTools, qrCodeGenerator, wifiQrCodeGenerator, svgPlaceholderGenerator, cameraRecorder],
   },
   {
     name: 'Development',
-    components: [
+    components: [...additionalDevelopmentTools,
       gitMemo,
       randomPortGenerator,
       crontabGenerator,
@@ -172,11 +173,11 @@ export const toolsByCategory: ToolCategory[] = [
   },
   {
     name: 'Measurement',
-    components: [chronometer, temperatureConverter, benchmarkBuilder],
+    components: [...additionalMeasurementTools, chronometer, temperatureConverter, benchmarkBuilder],
   },
   {
     name: 'Text',
-    components: [
+    components: [...additionalTextTools,
       loremIpsumGenerator,
       textStatistics,
       emojiPicker,
@@ -188,7 +189,7 @@ export const toolsByCategory: ToolCategory[] = [
   },
   {
     name: 'Data',
-    components: [phoneParserAndFormatter, ibanValidatorAndParser],
+    components: [...additionalDataTools, phoneParserAndFormatter, ibanValidatorAndParser],
   },
 ];
 
