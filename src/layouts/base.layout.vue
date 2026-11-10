@@ -62,7 +62,16 @@ const tools = computed<ToolCategory[]>(() => [
             © {{ new Date().getFullYear() }}
           </div>
           <div>
-            <RouterLink to="/about">오픈소스 고지 및 개인정보처리방침</RouterLink>
+            <RouterLink to="/about">사이트 정보</RouterLink>
+          </div>
+          <div>
+            <RouterLink to="/guides">가이드</RouterLink>
+          </div>
+          <div>
+            <RouterLink to="/privacy">개인정보처리방침</RouterLink>
+          </div>
+          <div>
+            <RouterLink to="/contact">문의</RouterLink>
           </div>
         </div>
       </div>

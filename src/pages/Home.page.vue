@@ -6,8 +6,13 @@ import { RouterLink } from 'vue-router';
 import Draggable from 'vuedraggable';
 import ToolCard from '../components/ToolCard.vue';
 import { useToolStore } from '@/tools/tools.store';
+import { guides } from '@/content/guides.loader';
+import { tools } from '@/tools';
 
 const toolStore = useToolStore();
+const latestGuides = guides.slice(0, 6);
+const ownToolPaths = ['/google-timeline-visualizer', '/csv-to-json', '/json-merge', '/css-gradient-generator', '/image-resizer', '/query-string-converter'];
+const ownTools = tools.filter(tool => ownToolPaths.includes(tool.path));
 
 const { t } = useI18n();
 useHead({ title: t('site.homeTitle') });
@@ -33,6 +38,25 @@ function onUpdateFavoriteTools() {
           <div><strong>사용 가이드 제공</strong><span>도구별 예제와 한계를 확인한 뒤 실제 작업에 적용할 수 있습니다.</span></div>
         </div>
         <RouterLink class="guide-link" to="/guides">개발 도구 사용 가이드 읽기 →</RouterLink>
+      </section>
+
+      <section class="home-block" aria-labelledby="home-guides-title">
+        <h2 id="home-guides-title">최신 가이드</h2>
+        <ul>
+          <li v-for="guide in latestGuides" :key="guide.slug">
+            <RouterLink :to="`/guides/${guide.slug}`">{{ guide.title }}</RouterLink>
+          </li>
+        </ul>
+      </section>
+
+      <section class="home-block" aria-labelledby="home-own-tools-title">
+        <h2 id="home-own-tools-title">it-box에서 직접 만든 도구</h2>
+        <p>Google Timeline 시각화 도구와 브라우저 안에서만 동작하는 추가 도구를 직접 만들어 제공합니다. 입력 데이터를 서버로 보내지 않고 확인할 수 있는 도구를 우선으로 합니다.</p>
+        <ul>
+          <li v-for="tool in ownTools" :key="tool.path">
+            <RouterLink :to="tool.path">{{ tool.name }}</RouterLink>
+          </li>
+        </ul>
       </section>
       <div class="grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4" />
 
@@ -97,6 +121,11 @@ function onUpdateFavoriteTools() {
 .home-principles strong { color: #26313a; font-size: 14px; }
 .home-principles span { font-size: 13px; line-height: 1.45; }
 .guide-link { color: #16834a; font-weight: 700; text-decoration: none; }
+.home-block { max-width: 900px; margin: 0 auto 28px; padding: 0 24px; color: #4b5560; line-height: 1.6; }
+.home-block h2 { margin: 0 0 8px; color: #26313a; font-size: 20px; }
+.home-block p { margin: 0 0 8px; }
+.home-block ul { margin: 0; padding-left: 20px; }
+.home-block a { color: #16834a; font-weight: 700; text-decoration: none; }
 @media (max-width: 700px) { .home-introduction { padding: 22px 18px; } .home-principles { grid-template-columns: 1fr; } }
 .height-enter-active,
 .height-leave-active {

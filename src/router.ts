@@ -32,9 +32,24 @@ const router = createRouter({
       component: () => import('./pages/About.vue'),
     },
     {
+      path: '/privacy',
+      name: 'privacy',
+      component: () => import('./pages/Privacy.vue'),
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: () => import('./pages/Contact.vue'),
+    },
+    {
       path: '/guides',
       name: 'guides',
       component: () => import('./pages/Guides.page.vue'),
+    },
+    {
+      path: '/guides/:slug',
+      name: 'guide-article',
+      component: () => import('./pages/GuideArticle.page.vue'),
     },
     ...toolsRoutes,
     ...toolsRedirectRoutes,

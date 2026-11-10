@@ -15,6 +15,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import markdown from 'vite-plugin-vue-markdown';
 import svgLoader from 'vite-svg-loader';
 import { configDefaults } from 'vitest/config';
+import { prerender } from './scripts/prerender-plugin';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -66,6 +67,8 @@ export default defineConfig(({ mode }) => {
       workbox: {
         // These files must be served as plain text/XML, not routed to the SPA shell.
         navigateFallbackDenylist: [/^\/(?:robots\.txt|sitemap\.xml|ads\.txt)$/],
+        // Prerendered pages (dist/<path>/index.html) stay out of the precache; only the root shell is cached.
+        globIgnores: ['**/*/index.html'],
       },
       manifest: {
         name: 'it-box',
@@ -108,6 +111,7 @@ export default defineConfig(({ mode }) => {
       resolvers: [NaiveUiResolver(), IconsResolver({ prefix: 'icon' })],
     }),
     Unocss(),
+    prerender(siteUrl),
   ],
   base: baseUrl,
   resolve: {
