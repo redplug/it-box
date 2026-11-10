@@ -22,6 +22,19 @@ defineProps<{ guide: ToolGuide }>();
       <strong>보안 주의</strong>
       <p>{{ guide.safety }}</p>
     </div>
+
+    <template v-if="guide.background?.length">
+      <h3>배경 지식</h3>
+      <p v-for="paragraph in guide.background" :key="paragraph">{{ paragraph }}</p>
+    </template>
+
+    <template v-if="guide.faq?.length">
+      <h3>자주 묻는 질문</h3>
+      <div v-for="item in guide.faq" :key="item.q" class="faq-item">
+        <p class="faq-question">Q. {{ item.q }}</p>
+        <p>A. {{ item.a }}</p>
+      </div>
+    </template>
   </section>
 </template>
 
@@ -47,4 +60,6 @@ ol { margin: 8px 0 0; padding-left: 22px; }
 .safety-note { margin-top: 22px; padding: 14px 16px; border-left: 3px solid #18a058; background: rgba(255, 255, 255, .65); }
 .safety-note strong { color: #137a45; }
 .safety-note p { margin-top: 3px; }
+.faq-item { margin-top: 10px; }
+.faq-question { font-weight: 700; color: #26313a; }
 </style>
