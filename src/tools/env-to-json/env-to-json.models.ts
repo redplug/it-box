@@ -5,7 +5,9 @@ const identifier = /^[A-Z_][\w]*$/i;
 function parseValue(raw: string): string {
   const quote = raw[0];
   if (quote !== '"' && quote !== '\'') {
-    return raw.split('#')[0].trimEnd();
+    // dotenv rule: only a # at the start of the value or after whitespace begins a comment
+    const comment = raw.search(/(^|\s)#/);
+    return (comment === -1 ? raw : raw.slice(0, comment)).trimEnd();
   }
   let value = '';
   for (let index = 1; index < raw.length; index++) {

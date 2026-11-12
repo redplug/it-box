@@ -19,13 +19,19 @@ export function matchRegex(regex: string, text: string, flags: string) {
   //   return [];
   // }
 
-  let lastIndex = -1;
   const re = new RegExp(regex, flags);
+  const unicode = flags.includes('u') || flags.includes('v');
   const results = [];
   let match = re.exec(text) as RegExpExecArrayWithIndices;
   while (match !== null) {
-    if (re.lastIndex === lastIndex || match[0] === '') {
-      break;
+    if (match[0] === '') {
+      // empty matches are not listed; step past them (one code point) so the search goes on
+      if (!re.global && !re.sticky) {
+        break;
+      }
+      re.lastIndex += unicode && (text.codePointAt(re.lastIndex) ?? 0) > 0xFFFF ? 2 : 1;
+      match = re.exec(text) as RegExpExecArrayWithIndices;
+      continue;
     }
     const indices = match.indices;
     const captures: Array<GroupCapture> = [];
@@ -54,7 +60,9 @@ export function matchRegex(regex: string, text: string, flags: string) {
       captures,
       groups,
     });
-    lastIndex = re.lastIndex;
+    if (!re.global && !re.sticky) {
+      break;
+    }
     match = re.exec(text) as RegExpExecArrayWithIndices;
   }
   return results;

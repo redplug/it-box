@@ -7,6 +7,7 @@ import { networkToolGuides } from './tool-guides/network';
 import { mathMeasurementToolGuides } from './tool-guides/math-measurement';
 import { textToolGuides } from './tool-guides/text';
 import { dataToolGuides } from './tool-guides/data';
+import { koreanToolGuides } from './tool-guides/korean';
 
 export interface ToolGuide {
   purpose: string
@@ -28,4 +29,5 @@ export const toolGuides: Record<string, ToolGuide> = {
   ...mathMeasurementToolGuides,
   ...textToolGuides,
   ...dataToolGuides,
+  ...koreanToolGuides,
 };

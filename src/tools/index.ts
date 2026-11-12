@@ -1,3 +1,10 @@
+import { tool as businessNumberValidator } from './business-number-validator';
+import { tool as hangulKeyboardConverter } from './hangul-keyboard-converter';
+import { tool as hangulJamoTool } from './hangul-jamo-tool';
+import { tool as koreanNumberConverter } from './korean-number-converter';
+import { tool as piiMasker } from './pii-masker';
+import { tool as ageDdayCalculator } from './age-dday-calculator';
+import { tool as koreanByteCounter } from './korean-byte-counter';
 import { additionalCryptoTools, additionalDataTools, additionalDevelopmentTools, additionalImageTools, additionalMeasurementTools, additionalTextTools, additionalWebTools } from './additional-tools';
 import { tool as base64FileConverter } from './base64-file-converter';
 import { tool as base64StringConverter } from './base64-string-converter';
@@ -170,7 +177,7 @@ export const toolsByCategory: ToolCategory[] = [
   },
   {
     name: 'Math',
-    components: [mathEvaluator, etaCalculator, percentageCalculator],
+    components: [ageDdayCalculator, koreanNumberConverter, mathEvaluator, etaCalculator, percentageCalculator],
   },
   {
     name: 'Measurement',
@@ -178,7 +185,7 @@ export const toolsByCategory: ToolCategory[] = [
   },
   {
     name: 'Text',
-    components: [...additionalTextTools,
+    components: [hangulKeyboardConverter, koreanByteCounter, hangulJamoTool, piiMasker, ...additionalTextTools,
       loremIpsumGenerator,
       textStatistics,
       emojiPicker,
@@ -190,7 +197,7 @@ export const toolsByCategory: ToolCategory[] = [
   },
   {
     name: 'Data',
-    components: [...additionalDataTools, phoneParserAndFormatter, ibanValidatorAndParser],
+    components: [businessNumberValidator, ...additionalDataTools, phoneParserAndFormatter, ibanValidatorAndParser],
   },
 ];
 

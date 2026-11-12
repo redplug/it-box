@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { generateMeta } from '@it-tools/oggen';
 import _ from 'lodash';
+import { generateMetaTags } from './meta-tag-generator.service';
 import { image, ogSchemas, twitter, website } from './og-schemas';
 import type { OGSchemaType, OGSchemaTypeElementSelect } from './OGSchemaType.type';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
@@ -46,7 +46,7 @@ const metaTags = computed(() => {
 
   const otherMeta = _.pickBy(metadata.value, (_value, k) => !k.startsWith('twitter:'));
 
-  return generateMeta({ ...otherMeta, twitter: twitterMeta }, { generateTwitterCompatibleMeta: true });
+  return generateMetaTags({ ...otherMeta, twitter: twitterMeta });
 });
 </script>
 
