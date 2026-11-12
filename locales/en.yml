@@ -58,6 +58,183 @@ toolCard:
 search:
   label: Search
 tools:
+  business-number-validator:
+    title: Korean Business and Corporate Number Validator
+    description: 'Check the format and check digit of Korean business registration and corporate registration numbers, one per line.'
+    inputLabel: Business or corporate numbers (one per line)
+    notice: Do not enter resident registration numbers. This tool checks only the format and check digit. Confirm actual registration with the National Tax Service (Hometax).
+    original: Original
+    normalized: Normalized
+    kind: Type
+    status: Status
+    reason: Reason
+    valid: Valid
+    invalid: Invalid
+    hintLabel: Category hint (reference only)
+    kinds:
+      business: Business registration number
+      corporate: Corporate registration number
+      unknown: Unknown
+    reasons:
+      valid: The format and check digit are correct.
+      checksum: The check digit does not match.
+      length: Wrong length. Business numbers have 10 digits and corporate numbers have 13 digits.
+      characters: 'Contains characters other than digits, hyphens and spaces.'
+    hints:
+      individual-taxable: Individual taxable business (01-79)
+      income-tax-nonprofit: Non-profit body under the Income Tax Act (80)
+      corporate-hq: 'For-profit corporation, head office (81, 86, 87, 88)'
+      nonprofit-corporate: Non-profit corporation (82)
+      government: National or local government (83)
+      foreign-corporate: Foreign corporation (84)
+      corporate-branch: 'For-profit corporation, branch (85)'
+      religious: Religious body treated as an individual (89)
+      individual-exempt: Individual tax-exempt business (90-99)
+      unknown: Unknown
+    errors:
+      tooManyLines: You can check up to 1000 lines at a time. Please reduce the number of lines.
+
+  hangul-keyboard-converter:
+    title: Hangul Keyboard Layout Fixer
+    description: Recovers text typed in the wrong input mode, converting between Hangul and English keys on the standard two-set Korean layout.
+    inputLabel: Text to convert
+    direction: Conversion direction
+    enToKo: English keys to Hangul
+    koToEn: Hangul to English keys
+
+  hangul-jamo-tool:
+    title: Hangul Jamo Splitter and Chosung Extractor
+    description: Split Hangul syllables into jamo, extract initial consonants, and show each syllable's parts in a table.
+    inputLabel: Text containing Hangul
+    expandJamo: Split compound jamo too
+    separatedLabel: Jamo separation
+    chosungLabel: Chosung extraction
+    syllableLabel: Syllable details (first 50 syllables)
+    noSyllables: No Hangul syllables found.
+    columns:
+      syllable: Syllable
+      cho: Initial
+      jung: Medial
+      jong: Final
+      codePoint: Code point
+    searchLabel: Chosung search test
+    searchPlaceholder: Type initial consonants (e.g. ㄷㅎㅁㄱ)
+    matched: Matches the input text.
+    notMatched: Does not match the input text.
+
+  korean-number-converter:
+    title: Number and Korean Amount Converter
+    description: Converts numbers to Korean reading, contract amount notation, mixed unit notation and comma notation, and parses Korean notation back into digits.
+    numberLabel: Number (commas, spaces and a trailing 원 allowed)
+    koreanLabel: Korean or mixed notation (reverse)
+    koreanPlaceholder: e.g. 삼억오천만, 3억 5천만
+    reading: Korean reading
+    amount: Amount notation (for contracts and receipts)
+    mixed: Mixed unit notation
+    comma: Comma notation
+    parsed: Result parsed to digits
+    errors:
+      invalidInput: Enter a non-negative whole number or a Korean notation that can be read.
+      tooLarge: Values longer than 20 digits cannot be converted.
+
+  pii-masker:
+    title: PII Masker
+    description: Mask national ID numbers, mobile phone numbers, emails, card numbers, IP addresses and business registration numbers in log and document text, entirely in the browser.
+    inputLabel: Source text
+    optionsLabel: Kinds to mask
+    resultLabel: Masked result
+    countTitle: Findings by kind
+    kindColumn: Kind
+    countColumn: Count
+    totalRow: Total
+    kinds:
+      rrn: Resident and foreigner registration numbers
+      phone: Mobile phone numbers
+      email: Email addresses
+      card: Card numbers
+      ipv4: IPv4 addresses
+      businessNo: Business registration numbers
+
+  age-dday-calculator:
+    title: Age, D-day and Date Calculator
+    description: Calculate age, days until the next birthday, D-day, business days and the date N days from a start date.
+    ageTitle: Age
+    birthDate: Birth date
+    referenceDate: Reference date
+    internationalAge: International age
+    koreanAge: Korean year age
+    traditionalAge: Traditional age
+    untilBirthday: Days until next birthday
+    sinceBirth: Days since birth
+    years: '{n} years'
+    days: '{n} days'
+    dayNumber: 'Day {n}'
+    ddayTitle: D-day
+    targetDate: Target date
+    remaining: Time remaining
+    elapsed: Time elapsed
+    weeksDays: '{weeks} weeks {days} days'
+    businessDays: Business days
+    businessDaysNote: Counts Monday to Friday only. Public holidays are not included. A target before the reference date gives a negative number.
+    addTitle: Add days
+    startDate: Start date
+    dayOffset: Days (negative allowed)
+    addResult: Start date + N days
+    nthDay: Nth day counting the start date as day 1
+    weekdays:
+      sun: Sunday
+      mon: Monday
+      tue: Tuesday
+      wed: Wednesday
+      thu: Thursday
+      fri: Friday
+      sat: Saturday
+    errors:
+      invalidDate: Enter a real date.
+      refBeforeBirth: The reference date cannot be earlier than the birth date.
+      invalidNumber: Enter a whole number.
+      invalidDayCount: For the Nth day, N must be 1 or greater when the start date is day 1.
+      outOfRange: The result is outside the supported range (January 1, year 1 to December 31, year 9999).
+
+  korean-byte-counter:
+    title: Korean Character and Byte Counter
+    description: Count characters, UTF-8 bytes and EUC-KR bytes for essays, text messages and DB column limits, and check them against a limit.
+    inputLabel: Text to count
+    lineBreakLabel: Line break bytes for EUC-KR
+    lineBreaks:
+      lf: LF (1 byte)
+      crlf: CRLF (2 bytes)
+    limitLabel: Limit
+    limitPlaceholder: No limit
+    limitModeLabel: Limit measured by
+    modes:
+      chars: Characters (with spaces)
+      charsNoSpace: Characters (without spaces)
+      utf8: UTF-8 bytes
+      eucKr: EUC-KR bytes
+    metricHeader: Metric
+    valueHeader: Value
+    metrics:
+      chars: Characters (with spaces)
+      charsNoSpace: Characters (without spaces)
+      utf8Bytes: UTF-8 bytes
+      eucKrBytes: EUC-KR bytes (Hangul counts 2)
+      utf16Units: UTF-16 code units (JS and Java length, not MySQL)
+      lines: Lines
+      hangul: Hangul syllables
+      latin: Latin letters
+      digits: Digits
+      unrepresentable: Not encodable in EUC-KR (above U+FFFF, counted as 2 bytes)
+    smsLabel: SMS verdict (EUC-KR basis, may differ by carrier or provider)
+    sms:
+      sms: SMS (90 bytes or fewer)
+      lms: LMS (2,000 bytes or fewer)
+      over: LMS limit exceeded (over 2,000 bytes)
+    unrepresentableNote: Characters that EUC-KR cannot encode are counted as 2 bytes. Emoji sequences have several code points, so their byte count can be much higher than the character count.
+    limitStatus: Current {current} / limit {limit}
+    overLimit: '{excess} over'
+    truncatedLabel: Text cut to the limit (never cut inside a character)
+
   categories:
     favorite-tools: 'Your favorite tools'
     crypto: Crypto
