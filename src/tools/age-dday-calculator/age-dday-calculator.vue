@@ -96,7 +96,7 @@ const { result: nthResult, error: nthError } = useLocalResult(() => {
     <c-card :title="t('tools.age-dday-calculator.ageTitle')" mb-4>
       <div flex flex-col gap-2 md:flex-row>
         <n-form-item :label="t('tools.age-dday-calculator.birthDate')" flex-1>
-          <n-date-picker v-model:value="birth" type="date" clearable />
+          <n-date-picker v-model:value="birth" type="date" clearable :placeholder="t('tools.age-dday-calculator.selectDate')" />
         </n-form-item>
         <n-form-item :label="t('tools.age-dday-calculator.referenceDate')" flex-1>
           <n-date-picker v-model:value="ageReference" type="date" />
@@ -134,7 +134,7 @@ const { result: nthResult, error: nthError } = useLocalResult(() => {
     <c-card :title="t('tools.age-dday-calculator.ddayTitle')" mb-4>
       <div flex flex-col gap-2 md:flex-row>
         <n-form-item :label="t('tools.age-dday-calculator.targetDate')" flex-1>
-          <n-date-picker v-model:value="target" type="date" clearable />
+          <n-date-picker v-model:value="target" type="date" clearable :placeholder="t('tools.age-dday-calculator.selectDate')" />
         </n-form-item>
         <n-form-item :label="t('tools.age-dday-calculator.referenceDate')" flex-1>
           <n-date-picker v-model:value="ddayReference" type="date" />
@@ -168,7 +168,7 @@ const { result: nthResult, error: nthError } = useLocalResult(() => {
     <c-card :title="t('tools.age-dday-calculator.addTitle')">
       <div flex flex-col gap-2 md:flex-row>
         <n-form-item :label="t('tools.age-dday-calculator.startDate')" flex-1>
-          <n-date-picker v-model:value="start" type="date" clearable />
+          <n-date-picker v-model:value="start" type="date" clearable :placeholder="t('tools.age-dday-calculator.selectDate')" />
         </n-form-item>
         <n-form-item :label="t('tools.age-dday-calculator.dayOffset')" flex-1>
           <n-input-number v-model:value="offset" :precision="0" />

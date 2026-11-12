@@ -157,6 +157,7 @@ tools:
 
   age-dday-calculator:
     title: Age, D-day and Date Calculator
+    selectDate: Select date
     description: Calculate age, days until the next birthday, D-day, business days and the date N days from a start date.
     ageTitle: Age
     birthDate: Birth date

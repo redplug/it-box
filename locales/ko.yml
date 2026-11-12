@@ -208,6 +208,7 @@ tools:
 
   age-dday-calculator:
     title: 만 나이 · D-day · 날짜 계산기
+    selectDate: 날짜 선택
     description: 생년월일로 만 나이와 다음 생일까지의 날수를, 목표일로 D-day와 영업일을, 시작일로 N일 뒤 날짜를 계산합니다.
     ageTitle: 만 나이 계산
     birthDate: 생년월일
